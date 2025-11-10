@@ -1,0 +1,18 @@
+/*---- phần đáy trang ---- */
+
+.footerconten p {
+  font-size: 18px;
+  font-weight: bold; /* Làm chữ đậm để nổi bật */
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.footer {
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+}
+.pagefooter p {
+  padding: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

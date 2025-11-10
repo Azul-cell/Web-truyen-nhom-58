@@ -1,0 +1,37 @@
+/* =====  lệnh gắn trực tiếp  ===== */
+
+/* phần ngoài chứa cả trang web */
+body {
+  font-family: Arial, sans-serif; /* Đặt font chữ cho toàn trang */
+  margin: 0; /* Xóa khoảng trống của trình duyệt quanh trang */
+  background-size: cover; /* Hình nền bao phủ toàn bộ màn hình */
+  background-repeat: no-repeat;
+  background-image: url(../../img/tutien.gif);
+  background-position: center;
+  background-attachment: fixed; /* Giữ hình nền cố định*/
+}
+/* đầu trang */
+header {
+  background: rgba(230, 230, 230, 0.815);
+  color: rgb(68, 68, 68);
+  padding: 10px 20px; /* Khoảng cách trong khung */
+  text-align: center;
+}
+/* phần chứa truyện */
+main {
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+}
+/* lệnh gắn đường link */
+a {
+  text-decoration: none; /* Xóa gạch chân*/
+}
+/* đáy trang */
+footer {
+  background: rgba(230, 230, 230, 0.815);
+  color: rgb(68, 68, 68);
+  width: 100%;
+  text-align: center;
+}

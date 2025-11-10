@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- kết nối với css -->
+    <link rel="stylesheet" href="../Css/direct.css" />
+    <link rel="stylesheet" href="../Css/head.css" />
+    <link rel="stylesheet" href="../Css/menu.css">
+    <link rel="stylesheet" href="../Css/mainkhung.css" />
+    <link rel="stylesheet" href="../Css/maincontent.css">
+    <link rel="stylesheet" href="../Css/footer.css" />
+    <link rel="stylesheet" href="../../web-truyen-backend/models/Truyen.js">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- < ảnh giao diện web trên thanh tìm kiếm -->
+    <link
+      rel="shortcut icon"
+      href="../../img/logo_no_bg.png"
+      type="image/x-icon"
+    />
+    <title>Tu Đạo Thư Viện</title>
+    <!-- tên web -->
+  </head>
+  <body>
+    <header>
+      <!-- đầu trang -->
+      <div class="top">
+        <!-- logo -->
+        <div class="logo">
+          <a href="../../code/Html/Trangchu.html">
+            <img src="../../img/logo_no_bg.png" alt="Retardtruyen"
+          /></a>
+        </div>
+        <!-- tìm kiếm -->
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Nhập tên tác giả, tên tác phẩm ...."
+          />
+          <i class="fa fa-search"></i>
+        </div>
+        <!-- đăng nhập - đăng ký -->
+        <div class="button">
+          <button id="opensignin">Đăng nhập</button>
+          <button id="openlogin">Đăng ký</button>
+        </div>
+        <!-- tạo hộp popup -->
+        <div id="overlay" class="overlay"></div>
+        <div id="login" class="modal">
+          <h2>Đăng ký</h2>
+          <label>Tên tài khoản</label>
+          <input type="email" placeholder="Tên tài khoản..." />
+          <label>Mật khẩu</label>
+          <input type="password" placeholder="Nhập mật khẩu..." />
+          <div class="btn-group">
+            <button class="btn primary">Đăng ký</button>
+            <button class="btn cancel" id="closeLogin">Hủy</button>
+          </div>
+        </div>
+        <!-- Java -->
+        <script>
+          const openBtn = document.getElementById("openlogin");
+          const closeBtn = document.getElementById("closeLogin");
+          const form = document.getElementById("login");
+          const overlay = document.getElementById("overlay");
+          openBtn.onclick = () => {
+            form.style.display = "block";
+            overlay.style.display = "block";
+          };
+
+          closeBtn.onclick = () => {
+            form.style.display = "none";
+            overlay.style.display = "none";
+          };
+
+          overlay.onclick = () => {
+            form.style.display = "none";
+            overlay.style.display = "none";
+          };
+        </script>
+      </div>
+    </header>
+    <!-- thanh nội dung -->
+    <header class="noidung">
+      <nav class="menu">
+        <a href="../Html/Trangchu.html"
+          ><img src="../../img/cong.png" alt="home "
+        /></a>
+        <a href="">Thể Loại</a>
+        <a id="Theodoi" href="./Theodoi.html">Theo Dõi</a>
+        <a href="">Lịch Sử</a>
+        <a href="">Bộ Lọc</a>
+      </nav>
+    </header>
+    <!-- phần chứa truyện -->
+    <main>
+      <div class="main">
+        <div class="page">
+          <!-- hộp nội dung nổi bật -->
+          <div class="box">
+            <div class="titlehome"> 
+              <a href=""><h2>Nổi bật</h2></a>
+            </div>
+            <div class="rtruyen">
+              <div class="itemtruyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/ta-thanh-nu-ma-dau-tam-ma/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />  
+                <p id="ten">Ta Thành Nữ Ma Đầu Tâm Ma</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+              <div class="itemtruyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/tien-menh-o-ta/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />
+                <p id="ten">Tiên Mệnh Ở Ta</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+            </div>
+          </div>
+          <!-- phần truyện mới -->
+          <div class="titlehome">
+            <div class="new">
+              <h2>New</h2>
+            </div>
+          </div>
+          <div class="list-truyen">
+            <dic class="rtruyen">
+              <div class="truyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/nguoi-o-tien-co-moi-vua-thanh-chi-ton/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />
+                <p id="ten">Người Ở Tiên Cổ Mới Vừa Thành Chí Tôn</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+              <div class="truyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/tu-so-sinh-tu-bat-dau-tu-tien/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />
+                <p id="ten">Từ Sơ Sinh Ta Bắt Đầu Tu Tiên</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+              <div class="truyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/truong-sinh-tu-tien-ta-thien-phu-co-diem/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />
+                <p id="ten">Trường Sinh Tu Tiên Ta Thiên Phú Có Điểm</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+              <div class="truyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/thi-quai-tu-hanh-but-ky/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />
+                <p id="ten">Thi Quái Tu Hành Bút Ký</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+              <div class="truyen">
+                <span id="thoigian">1 ngay truoc</span>
+                <img
+                  src="https://static.truyenchu.com.vn/Data/hong-hoang-ngo-tinh-nghich-thien-ta-dan-/150.jpg?w=256&q=75"
+                  alt="truyen"
+                />
+                <p id="ten">Hồng Hoang Ngộ Tính Nghịch Thiên</p>
+                <p id="chapter">2 chapter</p>
+              </div>
+            </div>
+          </dic >
+          <!-- lệnh chuyển trang -->
+          <div class="pagination" id="pagination"></div>
+          <script>
+            const itemsPerPage = 2; // mỗi trang hiển thị 3 truyện
+            const items = document.querySelectorAll(".truyen");
+            const totalPages = Math.ceil(items.length / itemsPerPage);
+            const pagination = document.getElementById("pagination");
+            function showPage(page) {
+              items.forEach((item, i) => {
+                item.style.display =
+                  i >= (page - 1) * itemsPerPage && i < page * itemsPerPage
+                    ? "block"
+                    : "none";
+              });
+
+              // cập nhật nút
+              document
+                .querySelectorAll(".pagination button")
+                .forEach((btn, i) => {
+                  btn.classList.toggle("active", i + 1 === page);
+                });
+            }
+
+            // tạo nút
+            for (let i = 1; i <= totalPages; i++) {
+              const btn = document.createElement("button");
+              btn.textContent = i;
+              btn.addEventListener("click", () => showPage(i));
+              pagination.appendChild(btn);
+            }
+
+            showPage(1);
+          </script>
+        </div>
+      </div>
+    </main>
+    <!-- phần đáy trang -->
+    <footer>
+      <div class="footer">
+        <div class="footerconten">  
+          <div class="pagefooter">
+            <p>
+              Giữa biển truyện mênh mông, nơi đây là tàng kinh các của người tu
+              chữ luyện văn. <br />
+              Mỗi câu, mỗi chữ đều ẩn chứa đạo, dẫn lối độc giả bước vào thế
+              giới huyền huyễn vô biên.
+            </p>
+          </div>
+            <p>📚 Tu Đạo Thư Viện - Tàng thư các tu tiên kỳ huyễn</p>
+          </div>
+          <div>
+            <p>© 2025 Tu Đạo Thư Viện. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

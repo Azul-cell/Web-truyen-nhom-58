@@ -1,0 +1,77 @@
+/*các truyện trên web */
+/* Dòng truyện ngang */
+.rtruyen {
+  display: flex;
+  flex-wrap: wrap; /* để tự xuống hàng khi thiếu chỗ */
+  gap: 20px;
+  padding: 10px 0;
+}
+
+/* Hộp từng truyện */
+.itemtruyen,
+.truyen {
+  background: #1c1c1c;
+  border-radius: 10px;
+  overflow: hidden; /*đảm bảo ảnh không tràn ra khỏi khung*/
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  position: relative; /* dùng để định vị các phần tử*/
+  width: 170px;
+}
+/* Ảnh bìa */
+.itemtruyen img,
+.truyen img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover; /* ảnh tự crop để vừa khung mà không méo */
+  display: block; /* loại bỏ khoảng trống mặc định dưới ảnh inline */
+  border-bottom: 1px solid #333; /* thêm viền mảnh phân cách ảnh và chữ */
+}
+
+/* Tag “1 Giờ Trước”, “2 Ngày Trước”, ... */
+#thoigian {
+  position: absolute; /*gắn chặt vị trí trong card*/
+  top: 8px; /*đặt thẻ ở góc trên trái.*/
+  left: 8px; /*đặt thẻ ở góc trên trái.*/
+  background: #00bfff;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /*tạo hiệu ứng nổi lên*/
+}
+
+/* Tên truyện */
+#ten {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 5px;
+  padding: 0 8px;
+  /* nếu tên truyện quá dài, sẽ bị rút gọn bằng dấu ... */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Chapter */
+#chapter {
+  color: #ccc;
+  font-size: 13px;
+  text-align: center;
+  margin: 5px 0 8px 0;
+}
+/* Hiệu ứng hover */
+.itemtruyen:hover,
+.truyen:hover {
+  transform: translateY(-6px); /*di chuyển card lên.*/
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+}
+.itemtruyen img:hover,
+.truyen img:hover {
+  filter: brightness(1.3); /*tăng độ sáng ảnh*/
+  transition: 0.3s ease;
+}

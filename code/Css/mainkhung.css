@@ -46,7 +46,7 @@
 .active {
   display: block; /* Chỉ phần có class "active" mới hiển thị */
 }
-.pagination button {
+.phanTrang button {
   margin: 5px;
   padding: 8px 12px;
   border: none;
@@ -55,7 +55,7 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.pagination button.active {
+.phanTrang button.active {
   background: #2ecc71;
 }
 .list-truyen {
@@ -64,11 +64,11 @@
   flex-wrap: wrap; /*xống hàng tự động*/
 }
 
-.pagination {
+.phanTrang {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.pagination button:hover {
+.phanTrang button:hover {
   background: orange;
 }

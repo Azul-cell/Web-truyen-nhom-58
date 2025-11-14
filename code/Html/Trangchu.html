@@ -45,8 +45,8 @@
         </div>
         <!-- đăng nhập - đăng ký -->
         <div class="button">
-          <button id="opensignin">Đăng nhập</button>
-          <button id="openlogin">Đăng ký</button>
+          <button id="openSignin">Đăng nhập</button>
+          <button id="openLogin">Đăng ký</button>
         </div>
         <!-- tạo hộp popup -->
         <div id="overlay" class="overlay"></div>
@@ -62,26 +62,7 @@
           </div>
         </div>
         <!-- Java -->
-        <script>
-          const openBtn = document.getElementById("openLogin");
-          const closeBtn = document.getElementById("closeLogin");
-          const form = document.getElementById("login");
-          const overlay = document.getElementById("overlay");
-          openBtn.onclick = () => {
-            form.style.display = "block";
-            overlay.style.display = "block";
-          };
-
-          closeBtn.onclick = () => {
-            form.style.display = "none";
-            overlay.style.display = "none";
-          };
-
-          overlay.onclick = () => {
-            form.style.display = "none";
-            overlay.style.display = "none";
-          };
-        </script>
+        <script src="../Java/dangNhapKy.js"></script>
       </div>
     </header>
     <!-- thanh nội dung -->
@@ -182,7 +163,7 @@
             </div>
           </dic >
           <!-- lệnh chuyển trang -->
-          <div class="pagination" id="pagination"></div>
+          <div class="phanTrang" id="phanTrang"></div>
           <!-- java -->
           <script src="../Java/chuyenTrang.js"></script>
         </div>

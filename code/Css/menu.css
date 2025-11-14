@@ -1,7 +1,7 @@
 /* ---- class thanh nội dung ---- */
 
 /* thanh nội dung */
-.noidung {
+.noiDung {
   background: rgba(110, 110, 110, 0.637);
   color: white;
   padding: 5px 10px; /* tạo không gian cho nội dung */
@@ -28,7 +28,7 @@
   width: 40px; /*kích thước*/
 }
 /* thay đổi khi di chuột vào */
-#Theodoi:hover {
+#theoDoi:hover {
   content: url(../../img/Theodoi.png); /*hình ảnh*/
   display: inline-block; /*đổi loại display*/
   width: 120px; /*kích thước*/

@@ -63,7 +63,7 @@
         </div>
         <!-- Java -->
         <script>
-          const openBtn = document.getElementById("openlogin");
+          const openBtn = document.getElementById("openLogin");
           const closeBtn = document.getElementById("closeLogin");
           const form = document.getElementById("login");
           const overlay = document.getElementById("overlay");
@@ -85,13 +85,13 @@
       </div>
     </header>
     <!-- thanh nội dung -->
-    <header class="noidung">
+    <header class="noiDung">
       <nav class="menu">
         <a href="../Html/Trangchu.html"
           ><img src="../../img/cong.png" alt="home "
         /></a>
         <a href="">Thể Loại</a>
-        <a id="Theodoi" href="./Theodoi.html">Theo Dõi</a>
+        <a id="theoDoi" href="./Theodoi.html">Theo Dõi</a>
         <a href="">Lịch Sử</a>
         <a href="">Bộ Lọc</a>
       </nav>
@@ -102,12 +102,12 @@
         <div class="page">
           <!-- hộp nội dung nổi bật -->
           <div class="box">
-            <div class="titlehome"> 
+            <div class="titleHome"> 
               <a href=""><h2>Nổi bật</h2></a>
             </div>
-            <div class="rtruyen">
-              <div class="itemtruyen">
-                <span id="thoigian">1 ngay truoc</span>
+            <div class="rTruyen">
+              <div class="itemTruyen">
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/ta-thanh-nu-ma-dau-tam-ma/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -115,8 +115,8 @@
                 <p id="ten">Ta Thành Nữ Ma Đầu Tâm Ma</p>
                 <p id="chapter">2 chapter</p>
               </div>
-              <div class="itemtruyen">
-                <span id="thoigian">1 ngay truoc</span>
+              <div class="itemTruyen">
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/tien-menh-o-ta/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -127,15 +127,15 @@
             </div>
           </div>
           <!-- phần truyện mới -->
-          <div class="titlehome">
+          <div class="titleHome">
             <div class="new">
               <h2>New</h2>
             </div>
           </div>
           <div class="list-truyen">
-            <dic class="rtruyen">
+            <dic class="rTruyen">
               <div class="truyen">
-                <span id="thoigian">1 ngay truoc</span>
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/nguoi-o-tien-co-moi-vua-thanh-chi-ton/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -144,7 +144,7 @@
                 <p id="chapter">2 chapter</p>
               </div>
               <div class="truyen">
-                <span id="thoigian">1 ngay truoc</span>
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/tu-so-sinh-tu-bat-dau-tu-tien/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -153,7 +153,7 @@
                 <p id="chapter">2 chapter</p>
               </div>
               <div class="truyen">
-                <span id="thoigian">1 ngay truoc</span>
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/truong-sinh-tu-tien-ta-thien-phu-co-diem/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -162,7 +162,7 @@
                 <p id="chapter">2 chapter</p>
               </div>
               <div class="truyen">
-                <span id="thoigian">1 ngay truoc</span>
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/thi-quai-tu-hanh-but-ky/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -171,7 +171,7 @@
                 <p id="chapter">2 chapter</p>
               </div>
               <div class="truyen">
-                <span id="thoigian">1 ngay truoc</span>
+                <span id="thoiGian">1 ngay truoc</span>
                 <img
                   src="https://static.truyenchu.com.vn/Data/hong-hoang-ngo-tinh-nghich-thien-ta-dan-/150.jpg?w=256&q=75"
                   alt="truyen"
@@ -183,45 +183,16 @@
           </dic >
           <!-- lệnh chuyển trang -->
           <div class="pagination" id="pagination"></div>
-          <script>
-            const itemsPerPage = 2; // mỗi trang hiển thị 3 truyện
-            const items = document.querySelectorAll(".truyen");
-            const totalPages = Math.ceil(items.length / itemsPerPage);
-            const pagination = document.getElementById("pagination");
-            function showPage(page) {
-              items.forEach((item, i) => {
-                item.style.display =
-                  i >= (page - 1) * itemsPerPage && i < page * itemsPerPage
-                    ? "block"
-                    : "none";
-              });
-
-              // cập nhật nút
-              document
-                .querySelectorAll(".pagination button")
-                .forEach((btn, i) => {
-                  btn.classList.toggle("active", i + 1 === page);
-                });
-            }
-
-            // tạo nút
-            for (let i = 1; i <= totalPages; i++) {
-              const btn = document.createElement("button");
-              btn.textContent = i;
-              btn.addEventListener("click", () => showPage(i));
-              pagination.appendChild(btn);
-            }
-
-            showPage(1);
-          </script>
+          <!-- java -->
+          <script src="../Java/chuyenTrang.js"></script>
         </div>
       </div>
     </main>
     <!-- phần đáy trang -->
     <footer>
       <div class="footer">
-        <div class="footerconten">  
-          <div class="pagefooter">
+        <div class="footerConten">  
+          <div class="pageFooter">
             <p>
               Giữa biển truyện mênh mông, nơi đây là tàng kinh các của người tu
               chữ luyện văn. <br />

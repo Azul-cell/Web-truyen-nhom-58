@@ -21,12 +21,12 @@
   width: 1200px;
 }
 /* thanh chữ tiêu đề */
-.titlehome {
+.titleHome {
   display: flex;
   padding: 10px 0px 0px 0px;
   margin-bottom: 10px;
 }
-.titlehome h2 {
+.titleHome h2 {
   font-size: 18px;
   color: rgb(255, 255, 255);
   font-weight: bold;
@@ -35,7 +35,7 @@
   padding: 8px 10px;
   border-radius: 10px;
 }
-.titlehome a {
+.titleHome a {
   text-decoration: none;
   transition: 0.3s;
 }

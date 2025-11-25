@@ -32,7 +32,7 @@
         <!-- logo -->
         <div class="logo">
           <a href="../../code/Html/Trangchu.html">
-            <img src="../../img/logo_no_bg.png" alt="Retardtruyen"
+            <img src="../../img/logo_no_bg.png" alt="RetardTruyen"
           /></a>
         </div>
         <!-- tìm kiếm -->
@@ -58,7 +58,7 @@
           <input type="password" placeholder="Nhập mật khẩu..." />
           <div class="btn-group">
             <button class="btn primary">Đăng ký</button>
-            <button class="btn cancel" id="closeLogin">Hủy</button>
+            <button button class="btn cancel" id="closeLogin">Hủy</button>
           </div>
         </div>
         <!-- Java -->
@@ -66,17 +66,67 @@
       </div>
     </header>
     <!-- thanh nội dung -->
-    <header class="noiDung">
-      <nav class="menu">
+    <nav class="noiDung">
+      <div class="menu">
         <a href="../Html/Trangchu.html"
           ><img src="../../img/cong.png" alt="home "
         /></a>
-        <a href="">Thể Loại</a>
+        <a class="theLoai">Thể Loại</a>
         <a id="theoDoi" href="./Theodoi.html">Theo Dõi</a>
         <a href="">Lịch Sử</a>
-        <a href="">Bộ Lọc</a>
-      </nav>
-    </header>
+        <a href="">Xếp Hạng</a>
+      </div>
+    </nav>
+    <!-- hộp thể loại -->
+    <nav class="navbar" id="navBarHide">
+      <ul>
+        <li class="hop">
+          <div class="hopMenu">
+            <div  class="hopTheLoai">
+              <a>Tiên Hiệp</a>
+              <a>Kiếm Hiệp</a>
+              <a>Ngôn Tình</a>
+              <a>Quan Trường</a>
+              <a>Võng Du</a>
+              <a>Khoa Huyễn</a>
+              <a>Hệ Thống</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Huyền Huyễn</a>
+              <a>Dị Giới</a>
+              <a>Dị Năng</a>
+              <a>Quân Sự</a>
+              <a>Lịch Sử</a>
+              <a>Xuyên Không</a>
+              <a>Xuyên Nhanh</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Trọng Sinh</a>
+              <a>Trinh Thám</a>
+              <a>Thám Hiểm</a>
+              <a>Linh Dị</a>
+              <a>Gia Đấu</a>
+              <a>Đông Phương</a>
+              <a>Đô Thị</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Hài Hước</a>
+              <a>Điền Văn</a>
+              <a>Cổ Đại</a>
+              <a>Mạt Thế</a>
+              <a>Phương Tây</a>
+              <a>Light Novel</a>
+              <a>Đoản Văn</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Nữ Cường</a>
+              <a>Khác</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <script src="../Java/menuTheLoai.js"></script>
     <!-- phần chứa truyện -->
     <main>
       <div class="main">
@@ -169,7 +219,7 @@
         </div>
       </div>
     </main>
-    <!-- phần đáy trang -->
+    <!-- phần đáy trang --> 
     <footer>
       <div class="footer">
         <div class="footerConten">  
@@ -191,3 +241,4 @@
     </footer>
   </body>
 </html>
+

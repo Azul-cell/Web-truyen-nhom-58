@@ -9,6 +9,8 @@ body {
   background-image: url(../../img/tutien.gif);
   background-position: center;
   background-attachment: fixed; /* Giữ hình nền cố định*/
+  display: flex;
+  flex-direction: column;
 }
 /* đầu trang */
 header {
@@ -34,4 +36,13 @@ footer {
   color: rgb(68, 68, 68);
   width: 100%;
   text-align: center;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  flex: 1;
 }

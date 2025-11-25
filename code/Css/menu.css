@@ -37,3 +37,62 @@
   color: rgb(255, 58, 107);
   background: #646464;
 }
+.theLoai {
+  cursor: pointer;
+}
+/* ===   Hộp Thể Loại   === */
+
+/* Thanh navbar chứa hộp thể loại */
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+/* Phần tử bao ngoài của menu */
+.navbar ul li {
+  position: relative;
+  padding: 15px 20px;
+}
+
+/* Hộp thể loại */
+.hopMenu {
+  position: absolute; /*thay đổi vị trí các phần tử mà không ảnh hưởng tới cái khác*/
+  left: 40vh;
+  background: rgba(211, 210, 210, 0.986);
+  padding: 20px;
+  width: 110vh;
+  /* Nhiều cột */
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  z-index: 1000; /* đè lên các phần tử khác*/
+  border-radius: 10px;
+}
+
+/* Cột thể loại */
+.hopTheLoai {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Link thể loại */
+.hopMenu a {
+  text-decoration: none;
+  color: #222222;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.hopMenu a:hover {
+  color: #f76503;
+}
+
+#navBarHide {
+  display: none;
+}
+#navBar {
+  display: flex;
+}

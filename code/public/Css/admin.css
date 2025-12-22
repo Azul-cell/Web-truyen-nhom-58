@@ -1,0 +1,130 @@
+/* ===== ADD TRUYEN ===== */
+.add-container {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-card {
+  width: 440px;
+  padding: 35px 30px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+/* tiêu đề */
+.add-card h2 {
+  margin-bottom: 22px;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* input + textarea */
+.add-card input,
+.add-card textarea {
+  width: 90%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: #eef4ff;
+}
+
+.add-card textarea {
+  resize: none;
+  height: 90px;
+}
+
+/* button */
+.add-card button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border-radius: 18px;
+  border: none;
+  background: linear-gradient(135deg, #ffcc33, #ffb703);
+  color: #000;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.add-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(255, 183, 3, 0.6);
+}
+.selected-genres {
+  background: #eef4ff;
+  padding: 10px;
+  border-radius: 14px;
+  font-size: 15px;
+  color: #333;
+  min-height: 40px;
+}
+/* ===== KHUNG CHỌN THỂ LOẠI ===== */
+.add-genres {
+  margin: 12px 0;
+}
+
+.genre-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* gom các thể loại thành grid */
+.genre-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* bỏ layout cũ */
+.hopTheLoai {
+  display: contents;
+}
+
+/* từng tag thể loại */
+.genre {
+  display: block;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.genre:hover {
+  background: #ffd369;
+}
+
+/* đã chọn */
+.genre.active {
+  background: #ffb703;
+  color: black;
+  font-weight: 600;
+}
+
+/* hiển thị kết quả */
+.selected-genres {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}

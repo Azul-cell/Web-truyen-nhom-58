@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- kết nối với css -->
+    <link rel="stylesheet" href="/Css/direct.css" />
+    <link rel="stylesheet" href="/Css/head.css" />
+    <link rel="stylesheet" href="/Css/menu.css">
+    <link rel="stylesheet" href="/Css/mainkhung.css" />
+    <link rel="stylesheet" href="/Css/maincontent.css">
+    <link rel="stylesheet" href="/Css/footer.css" />
+    <link rel="stylesheet" href="/Css/login.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- < ảnh giao diện web trên thanh tìm kiếm -->
+    <link
+      rel="shortcut icon"
+      href="/img/logo_no_bg.png"
+      type="image/x-icon"
+    />
+    <title>Tu Đạo Thư Viện</title>
+    <!-- tên web -->
+  </head>
+  <body>
+    <header>
+      <!-- đầu trang -->
+      <div class="top">
+        <!-- logo -->
+        <div class="logo">
+          <a href="/index.html">
+            <img src="/img/logo_no_bg.png" alt="RetardTruyen"
+          /></a>
+        </div>
+        <!-- tìm kiếm -->
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Nhập tên tác giả, tên tác phẩm ...."
+          />
+          <i class="fa fa-search"></i>
+        </div>
+        <!-- đăng nhập - đăng ký -->
+        <div class="button">
+        <!-- chưa login -->
+          <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login">Đăng nhập</a>
+        <!-- đã login -->
+          <div id="userBox" style="display: none;">
+            <span id="username"></span>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+        <script src="/Java/checkLogin.js"></script>
+        <script src="/Java/auth.js"></script>
+      </div>
+    </header>
+    <!-- thanh nội dung -->
+    <nav class="noiDung">
+      <div class="menu">
+        <a href="/index.html"
+          ><img src="/img/cong.png" alt="home "
+        /></a>
+        <a class="theLoai">Thể Loại</a>
+        <a id="theoDoi" href="/Html/Theodoi.html">Theo Dõi</a>
+        <a href="">Lịch Sử</a>
+        <a href="">Xếp Hạng</a>
+      </div>
+    </nav>
+    <!-- hộp thể loại -->
+    <nav class="navbar" id="navBarHide">
+      <ul>
+        <li class="hop">
+          <div class="hopMenu">
+            <div  class="hopTheLoai">
+              <a>Tiên Hiệp</a>
+              <a>Kiếm Hiệp</a>
+              <a>Ngôn Tình</a>
+              <a>Quan Trường</a>
+              <a>Võng Du</a>
+              <a>Khoa Huyễn</a>
+              <a>Hệ Thống</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Huyền Huyễn</a>
+              <a>Dị Giới</a>
+              <a>Dị Năng</a>
+              <a>Quân Sự</a>
+              <a>Lịch Sử</a>
+              <a>Xuyên Không</a>
+              <a>Xuyên Nhanh</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Trọng Sinh</a>
+              <a>Trinh Thám</a>
+              <a>Thám Hiểm</a>
+              <a>Linh Dị</a>
+              <a>Gia Đấu</a>
+              <a>Đông Phương</a>
+              <a>Đô Thị</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Hài Hước</a>
+              <a>Điền Văn</a>
+              <a>Cổ Đại</a>
+              <a>Mạt Thế</a>
+              <a>Phương Tây</a>
+              <a>Light Novel</a>
+              <a>Đoản Văn</a>
+            </div>
+            <div class="hopTheLoai">
+              <a>Nữ Cường</a>
+              <a>Khác</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <script src="/Java/menuTheLoai.js"></script>
+    <!-- main -->
+    <main>
+      <div class="container">
+        <input type="checkbox" id="toggle">
+    <!-- LOGIN -->
+    
+        <div class="card login">
+          <h2>Đăng nhập</h2>
+          <input id="login-username" placeholder="Username" />
+          <input id="login-password" type="password" placeholder="Password" />
+          <button onclick="login()">LOGIN</button>
+        </div>
+    <!-- SIGNUP -->
+        <div class="card signup">
+          <h2>Đăng ký</h2>
+          <input id="reg-username" placeholder="Username" />
+          <input id="reg-password" type="password" placeholder="Password" />
+          <input id="reg-password-confirm" type="password" placeholder="Nhập lại mật khẩu" />
+          <button onclick="register()">SIGN UP</button>
+        </div>
+        <label for="toggle" class="switch">⇄</label>
+      </div>
+      <script src="/Java/auth.js"></script>
+
+    </main>
+    <!-- phần đáy trang --> 
+    <footer>
+      <div class="footer">
+        <div class="footerConten">  
+          <div class="pageFooter">
+            <p>
+              Giữa biển truyện mênh mông, nơi đây là tàng kinh các của người tu
+              chữ luyện văn. <br />
+              Mỗi câu, mỗi chữ đều ẩn chứa đạo, dẫn lối độc giả bước vào thế
+              giới huyền huyễn vô biên.
+            </p>
+          </div>
+            <p>📚 Tu Đạo Thư Viện - Tàng thư các tu tiên kỳ huyễn</p>
+          </div>
+          <div>
+            <p>© 2025 Tu Đạo Thư Viện. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+

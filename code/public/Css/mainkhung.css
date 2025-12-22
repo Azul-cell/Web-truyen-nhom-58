@@ -1,0 +1,75 @@
+/* ---- phần chứa truyện ---- */
+
+/* khung của phần chứa truyện */
+.main {
+  margin: auto;
+  background: rgba(255, 255, 255, 0.315);
+  border-radius: 10px;
+  /* tự động điều chỉnh theo web */
+  max-width: 1200px;
+  min-width: 500px;
+  width: 100%;
+}
+/* các trang trong của phần chứa truyện */
+.page {
+  margin: auto;
+  padding: 5px 20px;
+}
+/* hộp truyện nổi bật */
+.box {
+  margin: auto;
+  width: 1200px;
+}
+/* thanh chữ tiêu đề */
+.titleHome {
+  display: flex;
+  padding: 10px 0px 0px 0px;
+  margin-bottom: 10px;
+}
+.titleHome h2 {
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  margin: 0;
+  background: rgba(63, 63, 63, 0.829);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+.titleHome a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+/* thanh chuyển trang */
+.truyen {
+  display: block;
+}
+
+.active {
+  display: block; /* Chỉ phần có class "active" mới hiển thị */
+}
+.phanTrang button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  background: #3498db;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.phanTrang button.active {
+  background: #2ecc71;
+}
+.list-truyen {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /*xống hàng tự động*/
+}
+
+.phanTrang {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.phanTrang button:hover {
+  background: orange;
+}

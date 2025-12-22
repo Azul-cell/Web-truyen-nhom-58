@@ -1,0 +1,32 @@
+.chuong-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 10px;
+  line-height: 1.8;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.chuong-content p {
+  margin-bottom: 16px;
+}
+
+.chuong-nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.chuong-nav button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #3498db;
+  color: #fff;
+}
+
+.chuong-nav button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}

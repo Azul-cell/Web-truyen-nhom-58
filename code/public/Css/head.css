@@ -1,0 +1,204 @@
+/* ---- phần class đầu ---- */
+
+/* vỏ ngoài bao bọc phần đầu */
+
+.top {
+  display: flex; /* xếp cùng một hàng */
+  /*căn giữa*/
+  justify-content: space-evenly;
+  align-items: center;
+}
+/* logo đầu trang */
+.logo img {
+  width: 150px;
+}
+
+/* tìm kiếm */
+.search {
+  position: relative; /* cần có để icon nằm trong khung */
+  width: 500px;
+  background-color: rgb(185, 185, 185);
+  border-radius: 20px; /*bo góc*/
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease; /* hiệu úng hover mượt */
+}
+/* hover đổi màu nền */
+.search:hover {
+  background: #cfcfcf;
+}
+/* ô input */
+.search input {
+  flex: 1; /* chiếm toàn bộ chiều rộng còn lại */
+  height: 30px;
+  border: none;
+  background: transparent; /* dùng nền của .search */
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  padding-left: 35px; /* chừa chỗ cho icon */
+  outline: none; /*xóa viền thanh search*/
+  border-radius: 20px;
+}
+/* placeholder */
+.search input::placeholder {
+  color: #494949;
+  opacity: 1;
+}
+
+/* icon kính lúp */
+.search i {
+  position: absolute; /*icon nằm cố định trong thanh tìm kiếm*/
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%); /* căn giữa icon theo chiều dọc*/
+  color: #5a5a5a;
+  font-size: 16px;
+  pointer-events: none; /*click và không bị icon chặn*/
+}
+
+/* đăng nhập */
+.button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+.btn-login {
+  padding: 8px 14px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.btn-login:hover {
+  background: rgba(255, 120, 120, 0.8);
+}
+/* Khung user */
+#userBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 6px 12px;
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+/* Username */
+#username {
+  color: #ffd369;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+/* Admin nổi bật */
+#username.admin {
+  color: gold;
+  font-weight: 700;
+}
+
+#username.admin::before {
+  content: "👑 ";
+}
+
+/* Link quản trị */
+#adminMenu {
+  color: #4da3ff;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 999px;
+  transition: 0.2s;
+}
+
+#adminMenu:hover {
+  background: rgba(77, 163, 255, 0.2);
+}
+
+/* Logout */
+#userBox button {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #ff4d4f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#userBox button:hover {
+  background: #d9363e;
+}
+/* ===== GỢI Ý TÌM KIẾM ===== */
+.search-suggest {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+
+  background: #ebebebd5;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+
+  display: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+/* mỗi gợi ý */
+.search-suggest .suggest-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.search-suggest .suggest-item:hover {
+  background: #f0f0f0;
+}
+
+/* ảnh bìa nhỏ */
+.search-suggest .thumb {
+  width: 40px;
+  height: 55px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.search-suggest .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* khối text */
+.search-suggest .info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-suggest .info .title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #222;
+  line-height: 1.2;
+}
+
+.search-suggest .info .author {
+  font-size: 12px;
+  color: #777;
+}

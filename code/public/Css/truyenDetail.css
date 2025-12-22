@@ -1,0 +1,187 @@
+.truyen-detail {
+  display: flex;
+  gap: 30px;
+  background: rgba(228, 228, 228, 0.767);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.box {
+  margin: 15px auto;
+  padding: 10px 10px;
+  border-radius: 10px;
+  background: rgba(109, 105, 105, 0.178);
+  max-width: 98%;
+}
+
+.detail-left img {
+  width: 220px;
+  border-radius: 8px;
+}
+
+.detail-right h1 {
+  margin: 0 0 10px;
+}
+
+.detail-right p {
+  margin: 6px 0;
+}
+
+.actions {
+  margin-top: 15px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-read {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-follow {
+  background: #ffffff;
+}
+
+.moTa {
+  line-height: 1.6;
+  padding: 10px;
+}
+.chuong-list {
+  background: rgba(245, 245, 245, 0.801);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.chuong-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.chuong-item:hover {
+  background: #f2f2f2;
+}
+
+.chuong-item span {
+  font-weight: bold;
+}
+.admin-chuong-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-chuong-form input,
+.admin-chuong-form textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.admin-chuong-form textarea {
+  min-height: 150px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#btnThemChuong {
+  background: #27ae60;
+  color: #fff;
+}
+#btnCapNhatChuong {
+  background: #f1c40f;
+}
+#btnHuySua {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* NÚT SỬA / XOÁ TRONG DANH SÁCH */
+.chuong-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chuong-tools button {
+  margin-left: 6px;
+  cursor: pointer;
+}
+.btn-follow {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ffcc00;
+  background: #222;
+  color: #ffcc00;
+  cursor: pointer;
+}
+
+.btn-follow.followed {
+  background: #ffcc00;
+  color: #000;
+}
+.rating-box {
+  margin-top: 10px;
+}
+
+.rating-stars span {
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.rating-stars span.active {
+  opacity: 1;
+}
+
+/* ===== SAO ===== */
+#ratingStars {
+  display: flex;
+  gap: 6px;
+}
+
+#ratingStars span {
+  font-size: 28px;
+  cursor: pointer;
+  color: #000000;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* hover */
+#ratingStars span:hover {
+  color: #ffcc00;
+  transform: scale(1.25);
+}
+
+/* sao đã chọn */
+#ratingStars span.active,
+#ratingStars span.active ~ span {
+  color: #000000;
+}
+
+#ratingStars span.active {
+  color: #ffcc00;
+}
+
+/* ===== ĐIỂM TRUNG BÌNH ===== */
+#ratingAvg {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #000000;
+}

@@ -1,0 +1,113 @@
+/* ---- class thanh nội dung ---- */
+
+/* thanh nội dung */
+.noiDung {
+  background: rgba(110, 110, 110, 0.637);
+  color: white;
+  padding: 5px 10px; /* tạo không gian cho nội dung */
+}
+/* thanh menu */
+.menu {
+  display: flex;
+  gap: 10%; /*tạo khoảng cách các phần tử*/
+  align-items: center;
+  font-size: 20px;
+  justify-content: center;
+}
+/* gắn trực tiếp vào phần link của thanh menu */
+.menu a {
+  text-decoration: none;
+  transition: 0.3s; /*thời gian chuyển đổi*/
+  font-weight: 600; /* Làm chữ đậm hơn */
+  color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+/* sửa ảnh */
+.menu img {
+  width: 40px; /*kích thước*/
+}
+/* thay đổi khi di chuột vào */
+#theoDoi:hover {
+  content: url(../../img/Theodoi.png); /*hình ảnh*/
+  display: inline-block; /*đổi loại display*/
+  width: 120px; /*kích thước*/
+}
+.menu a:hover {
+  color: rgb(255, 58, 107);
+  background: #646464;
+}
+.theLoai {
+  cursor: pointer;
+}
+/* ===   Hộp Thể Loại   === */
+
+/* Thanh navbar chứa hộp thể loại */
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+/* Phần tử bao ngoài của menu */
+.navbar ul li {
+  position: relative;
+  padding: 15px 20px;
+}
+
+/* Hộp thể loại */
+.hopMenu {
+  position: absolute; /*thay đổi vị trí các phần tử mà không ảnh hưởng tới cái khác*/
+  left: 40vh;
+  background: rgba(211, 210, 210, 0.986);
+  padding: 20px;
+  width: 110vh;
+  /* Nhiều cột */
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  z-index: 1000; /* đè lên các phần tử khác*/
+  border-radius: 10px;
+}
+
+/* Cột thể loại */
+.hopTheLoai {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Link thể loại */
+.hopMenu a {
+  text-decoration: none;
+  color: #222222;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.hopMenu a:hover {
+  color: #f76503;
+}
+
+#navBarHide {
+  display: none;
+}
+.genre,
+.genre-all {
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.genre:hover,
+.genre-all:hover {
+  background: #ffd54f;
+}
+
+.active-genre {
+  background: #ffd54f;
+  color: #000;
+  font-weight: bold;
+}

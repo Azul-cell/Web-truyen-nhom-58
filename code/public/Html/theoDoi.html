@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- kết nối với css -->
+    <link rel="stylesheet" href="/Css/direct.css" />
+    <link rel="stylesheet" href="/Css/head.css" />
+    <link rel="stylesheet" href="/Css/menu.css">
+    <link rel="stylesheet" href="/Css/mainkhung.css" />
+    <link rel="stylesheet" href="/Css/maincontent.css">
+    <link rel="stylesheet" href="/Css/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- < ảnh giao diện web trên thanh tìm kiếm -->
+    <link
+      rel="shortcut icon"
+      href="/img/logo_no_bg.png"
+      type="image/x-icon"
+    />
+    <title>Tu Đạo Thư Viện</title>
+    <!-- tên web -->
+  </head>
+  <body>
+    <header>
+      <!-- đầu trang -->
+      <div class="top">
+        <!-- logo -->
+        <div class="logo">
+          <a href=" /index.html">
+            <img src="/img/logo_no_bg.png" alt="RetardTruyen"
+          /></a>
+        </div>
+        <!-- tìm kiếm -->
+        <div class="search">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Nhập tên tác giả, tên tác phẩm ...."
+            autocomplete="off"
+          />
+          <i class="fa fa-search" id="searchBtn"></i>
+          <!-- GỢI Ý -->
+          <div class="search-suggest" id="searchSuggest"></div>
+        </div>
+        <!-- đăng nhập - đăng ký -->
+        
+        <div class="button">
+        <!-- chưa login -->
+          <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login">Đăng nhập</a>
+        <!-- đã login -->
+          <div id="userBox" style="display: none;">
+            <span id="username"></span>
+            <a id="adminMenu" href="/Html/admin.html" style="display:none"> Quản trị </a>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+      <script src="/Java/checkLogin.js"></script>
+      <script src="/Java/auth.js"></script>
+    </header>
+    <!-- thanh nội dung -->
+    <nav class="noiDung">
+      <div class="menu">
+        <a href="/index.html"
+          ><img src="/img/cong.png" alt="home "
+        /></a>
+        <a class="theLoai">Thể Loại</a>
+        <a id="theoDoi" href="/Html/Theodoi.html">Theo Dõi</a>
+        <a href="">Lịch Sử</a>
+        <a href="">Xếp Hạng</a>
+      </div>
+    </nav>
+    <!-- hộp thể loại -->
+    <nav class="navbar" id="navBarHide">
+      <ul>
+        <li class="hop">
+          <div class="hopMenu">
+            <div  class="hopTheLoai">
+              <a class="genre">Tiên Hiệp</a>
+              <a class="genre">Kiếm Hiệp</a>
+              <a class="genre">Ngôn Tình</a>
+              <a class="genre">Quan Trường</a>
+              <a class="genre">Võng Du</a>
+              <a class="genre">Khoa Huyễn</a>
+              <a class="genre">Hệ Thống</a>
+            </div>
+            <div class="hopTheLoai">
+              <a class="genre">Huyền Huyễn</a>
+              <a class="genre">Dị Giới</a>
+              <a class="genre">Dị Năng</a>
+              <a class="genre">Quân Sự</a>
+              <a class="genre">Lịch Sử</a>
+              <a class="genre">Xuyên Không</a>
+              <a class="genre">Xuyên Nhanh</a>
+            </div>
+            <div class="hopTheLoai">
+              <a class="genre">Trọng Sinh</a>
+              <a class="genre">Trinh Thám</a>
+              <a class="genre">Thám Hiểm</a>
+              <a class="genre">Linh Dị</a>
+              <a class="genre">Gia Đấu</a>
+              <a class="genre">Đông Phương</a>
+              <a class="genre">Đô Thị</a>
+            </div>
+            <div class="hopTheLoai">
+              <a class="genre">Hài Hước</a>
+              <a class="genre">Điền Văn</a>
+              <a class="genre">Cổ Đại</a>
+              <a class="genre">Mạt Thế</a>
+              <a class="genre">Phương Tây</a>
+              <a class="genre">Light Novel</a>
+              <a class="genre">Đoản Văn</a>
+            </div>
+            <div class="hopTheLoai">
+              <a class="genre">Nữ Cường</a>
+              <a class="genre">Khác</a>
+              <a class="genre-all">Tất cả</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <script src="/Java/genreSelect.js"></script>
+    <script src="/Java/menuTheLoai.js"></script>
+    <!-- phần chứa truyện -->
+    <main>
+  <div class="main">
+      <div class="page">
+        <h1>⭐ Truyện đang theo dõi</h1>
+
+        <div id="followList" class="rTruyen"></div>
+      </div>
+    </div>
+
+    <script src="/Java/theodoi.js"></script>
+</main>
+
+    <!-- phần đáy trang --> 
+    <footer>
+      <div class="footer">
+        <div class="footerConten">  
+          <div class="pageFooter">
+            <p>
+              Giữa biển truyện mênh mông, nơi đây là tàng kinh các của người tu
+              chữ luyện văn. <br />
+              Mỗi câu, mỗi chữ đều ẩn chứa đạo, dẫn lối độc giả bước vào thế
+              giới huyền huyễn vô biên.
+            </p>
+          </div>
+            <p>📚 Tu Đạo Thư Viện - Tàng thư các tu tiên kỳ huyễn</p>
+          </div>
+          <div>
+            <p>© 2025 Tu Đạo Thư Viện. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+

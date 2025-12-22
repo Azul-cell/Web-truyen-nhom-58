@@ -1,0 +1,96 @@
+/* ===== KHUNG CHỨA LOGIN ===== */
+.container {
+  position: relative;
+  width: 420px; /* to hơn */
+  height: 480px; /* cao hơn */
+  perspective: 1200px;
+  margin: 80px auto; /* auto = căn ngang */
+}
+
+/* Ẩn checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* ===== CARD LOGIN / SIGNUP ===== */
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background: #888888d8;
+  border-radius: 20px;
+  padding: 40px 35px;
+  box-sizing: border-box;
+
+  color: white;
+  backface-visibility: hidden;
+  transition: transform 0.8s ease;
+
+  box-shadow: 0 25px 60px rgba(56, 56, 56, 0.507);
+}
+
+/* ===== TIÊU ĐỀ ===== */
+.card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+/* ===== INPUT ===== */
+.card input {
+  width: 95%;
+  margin: 14px 0;
+  padding: 14px;
+
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  font-size: 15px;
+}
+
+/* ===== NÚT ĐĂNG NHẬP / ĐĂNG KÝ ===== */
+.card button {
+  margin-top: 20px;
+
+  width: 70%; /* không full */
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* căn giữa */
+
+  padding: 14px;
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* ===== CARD SIGNUP (MẶT SAU) ===== */
+.signup {
+  transform: rotateY(180deg);
+}
+
+/* ===== HIỆU ỨNG FLIP ===== */
+#toggle:checked ~ .login {
+  transform: rotateY(180deg);
+}
+
+#toggle:checked ~ .signup {
+  transform: rotateY(360deg);
+}
+
+/* ===== NÚT ĐẢO (TRONG KHUNG) ===== */
+.switch {
+  position: absolute;
+  bottom: 20px; /* nằm TRONG khung */
+  left: 50%;
+  transform: translateX(-50%);
+
+  cursor: pointer;
+  color: #facc15;
+  font-size: 28px;
+}

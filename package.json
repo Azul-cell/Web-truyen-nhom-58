@@ -1,0 +1,29 @@
+{
+  "name": "web-truyen",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Azul-cell/Web-truyen-nhom-58#readme",
+  "bugs": {
+    "url": "https://github.com/Azul-cell/Web-truyen-nhom-58/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azul-cell/Web-truyen-nhom-58.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.0.1"
+  }
+}

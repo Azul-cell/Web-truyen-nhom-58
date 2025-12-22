@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS giống trang chủ -->
+    <link rel="stylesheet" href="/Css/direct.css" />
+    <link rel="stylesheet" href="/Css/head.css" />
+    <link rel="stylesheet" href="/Css/menu.css" />
+    <link rel="stylesheet" href="/Css/mainkhung.css" />
+    <link rel="stylesheet" href="/Css/maincontent.css" />
+    <link rel="stylesheet" href="/Css/footer.css" />
+    <link rel="stylesheet" href="/Css/truyenDetail.css" />
+    <link rel="stylesheet" href="/Css/binhLuan.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <link rel="shortcut icon" href="/img/logo_no_bg.png" />
+    <title>Chi tiết truyện</title>
+  </head>
+
+  <body>
+    <header>
+      <!-- đầu trang -->
+      <div class="top">
+        <!-- logo -->
+        <div class="logo">
+          <a href=" /index.html">
+            <img src="/img/logo_no_bg.png" alt="RetardTruyen"
+          /></a>
+        </div>
+        <!-- tìm kiếm -->
+        <div class="search">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Nhập tên tác giả, tên tác phẩm ...."
+            autocomplete="off"
+          />
+          <i class="fa fa-search" id="searchBtn"></i>
+          <!-- GỢI Ý -->
+          <div class="search-suggest" id="searchSuggest"></div>
+        </div>
+        <!-- đăng nhập - đăng ký -->
+
+        <div class="button">
+          <!-- chưa login -->
+          <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login"
+            >Đăng nhập</a
+          >
+          <!-- đã login -->
+          <div id="userBox" style="display: none">
+            <span id="username"></span>
+            <a id="adminMenu" href="/Html/admin.html" style="display: none">
+              Quản trị
+            </a>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+      <script src="/Java/checkLogin.js"></script>
+      <script src="/Java/auth.js"></script>
+    </header>
+    <!-- thanh nội dung -->
+    <nav class="noiDung">
+      <div class="menu">
+        <a href="/index.html"><img src="/img/cong.png" alt="home " /></a>
+        <a class="theLoai">Thể Loại</a>
+        <a id="theoDoi" href="/Html/Theodoi.html">Theo Dõi</a>
+        <a href="">Lịch Sử</a>
+        <a href="">Xếp Hạng</a>
+      </div>
+    </nav>
+    <main>
+      <div class="main">
+        <div class="page">
+          <!-- CHI TIẾT TRUYỆN -->
+          <div class="truyen-detail">
+            <div class="detail-left">
+              <img id="cover" />
+            </div>
+
+            <div class="detail-right">
+              <h1 id="title"></h1>
+              <p id="author"></p>
+              <p id="genre"></p>
+              <div class="actions">
+                <button class="btn-follow" id="btnFollow">⭐ Theo dõi</button>
+              </div>
+              <div class="rating-box">
+                <div id="ratingAvg">⭐ 0.0 / 5 (0 lượt)</div>
+
+                <div class="rating-stars" id="ratingStars">
+                  <span data-star="1">⭐</span>
+                  <span data-star="2">⭐</span>
+                  <span data-star="3">⭐</span>
+                  <span data-star="4">⭐</span>
+                  <span data-star="5">⭐</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script src="/Java/truyenDetailFollow.js"></script>
+          <script src="/Java/danhgia.js"></script>
+
+          <!-- GIỚI THIỆU -->
+          <div class="box">
+            <div class="titleHome">
+              <h2>Giới thiệu</h2>
+            </div>
+            <p id="desc" class="moTa"></p>
+          </div>
+
+          <!-- DANH SÁCH CHƯƠNG -->
+          <div class="box">
+            <div class="titleHome">
+              <h2>Danh sách chương</h2>
+            </div>
+            <div class="chuong-list" id="chuongList"></div>
+          </div>
+
+          <!-- QUẢN LÝ CHƯƠNG (ADMIN) -->
+          <div class="box" id="adminChuongBox" style="display: none">
+            <div class="titleHome">
+              <h2>Quản lý chương (Admin)</h2>
+            </div>
+
+            <div class="admin-chuong-form">
+              <input id="soChuong" placeholder="Số chương" />
+              <input id="tieuDeChuong" placeholder="Tiêu đề chương" />
+              <textarea
+                id="noiDungChuong"
+                placeholder="Nội dung chương"
+              ></textarea>
+
+              <div class="admin-actions">
+                <button id="btnThemChuong">➕ Thêm</button>
+                <button id="btnCapNhatChuong" style="display: none">
+                  ✏️ Cập nhật
+                </button>
+                <button id="btnHuySua" style="display: none">❌ Huỷ</button>
+              </div>
+            </div>
+          </div>
+          <!-- BÌNH LUẬN -->
+          <div class="box">
+            <div class="titleHome">
+              <h2>Bình luận</h2>
+            </div>
+
+            <div id="binhLuanList"></div>
+
+            <div class="binhluan-form">
+              <textarea
+                id="noiDungBinhLuan"
+                placeholder="Viết bình luận..."
+              ></textarea>
+
+              <button id="btnGuiBinhLuan" disabled>💬 Gửi</button>
+            </div>
+
+            <p id="binhLuanNote" style="font-size: 13px; color: #888"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOAD JS ĐÚNG THỨ TỰ -->
+      <script src="/Java/truyenDetailRender.js"></script>
+      <script src="/Java/truyenDetailAdmin.js"></script>
+      <script src="/Java/truyenDetailLoad.js"></script>
+      <script src="/Java/truyenDetailComment.js"></script>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <div class="footer">
+        <div class="footerConten">
+          <p>📚 Tu Đạo Thư Viện - Tàng thư các tu tiên kỳ huyễn</p>
+          <p>© 2025 Tu Đạo Thư Viện. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/Java/checkLogin.js"></script>
+    <script src="/Java/auth.js"></script>
+  </body>
+</html>

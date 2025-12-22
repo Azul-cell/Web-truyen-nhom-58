@@ -21,6 +21,24 @@
         <div class="logo">
           <a href="/index.html"><img src="/img/logo_no_bg.png" /></a>
         </div>
+        <!-- đăng nhập - đăng ký -->
+        <div class="button">
+          <!-- chưa login -->
+          <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login"
+            >Đăng nhập</a
+          >
+
+          <!-- đã login -->
+          <div id="userBox" style="display: none">
+            <span id="username"></span>
+            <a id="adminMenu" href="/Html/admin.html" style="display: none">
+              Quản trị
+            </a>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+        <script src="/Java/checkLogin.js"></script>
+        <script src="/Java/auth.js"></script>
       </div>
     </header>
 

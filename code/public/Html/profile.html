@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="/Css/mainkhung.css" />
     <link rel="stylesheet" href="/Css/maincontent.css">
     <link rel="stylesheet" href="/Css/footer.css" />
+    <link rel="stylesheet" href="/Css/login.css">
     <link rel="stylesheet" href="/Css/user.css">
+    <link rel="stylesheet" href="/Css/profile.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -170,20 +172,45 @@
         <a href="/Html/xepHang.html">Xếp Hạng</a>
       </div>
     </nav>
-    <script src="/Java/genreSelect.js"></script>
     <script src="/Java/menuTheLoai.js"></script>
-    <!-- phần chứa truyện -->
-    <main>
-      <div class="main">
-        <div class="page">
-          <div class="titleHome">
-            <h2>🏆 Xếp hạng đánh giá</h2>
-          </div>
-          <div class="rTruyen" id="xepHangDanhGia"></div>
-        </div>
-      </div>
-      <script src="/Java/xepHangDanhGia.js"></script>
-    </main>
+    <!-- main -->
+    <main class="profile-main">
+  <!-- ===== THÔNG TIN CÁ NHÂN ===== -->
+  <section class="profile-header">
+    <img
+      class="avatar"
+      src="/img/avatar-default.png"
+      alt="avatar"
+    />
+    <div class="info">
+      <h2 id="username">Unluckk</h2>
+      <p class="role">👤 Đạo hữu</p>
+    </div>
+  </section>
+
+  <!-- ===== TAB ===== -->
+  <section class="profile-tabs">
+    <button class="tab active" data-tab="theodoi">📌 Theo dõi</button>
+    <button class="tab" data-tab="lichsu">🕒 Lịch sử</button>
+    <button class="tab" data-tab="binhluan">💬 Bình luận</button>
+  </section>
+
+  <!-- ===== NỘI DUNG ===== -->
+  <section class="profile-content">
+    <div class="tab-content active" id="theodoi">
+      <p>📚 Danh sách truyện đang theo dõi</p>
+    </div>
+
+    <div class="tab-content" id="lichsu">
+      <p>🕒 Lịch sử đọc truyện</p>
+    </div>
+
+    <div class="tab-content" id="binhluan">
+      <p>💬 Bình luận của bạn</p>
+    </div>
+  </section>
+</main>
+
     <!-- phần đáy trang --> 
     <footer>
       <div class="footer">

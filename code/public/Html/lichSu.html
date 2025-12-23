@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/Css/mainkhung.css" />
     <link rel="stylesheet" href="/Css/maincontent.css">
     <link rel="stylesheet" href="/Css/footer.css" />
+    <link rel="stylesheet" href="/Css/user.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -49,80 +50,123 @@
         <!-- đăng nhập - đăng ký -->
         
         <div class="button">
-        <!-- chưa login -->
+          <!-- chưa login -->
           <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login">Đăng nhập</a>
-        <!-- đã login -->
+          
+          <!-- đã login -->
           <div id="userBox" style="display: none;">
-            <span id="username"></span>
-            <a id="adminMenu" href="/Html/admin.html" style="display:none"> Quản trị </a>
-            <button onclick="logout()">Logout</button>
+            <div class="user-avatar-container">
+              <img id="userAvatar" src="/img/default-avatar.png" alt="Avatar" class="user-avatar">
+              <span id="username" class="username-text"></span>
+            </div>
+            <div class="user-dropdown">
+              <a id="adminMenu" href="/Html/admin.html" style="display:none">
+                <i class="fas fa-user-shield"></i> Quản trị
+              </a>
+              <a href="/Html/profile.html">
+                <i class="fas fa-user"></i> Trang cá nhân
+              </a>
+              <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+              </button>
+            </div>
           </div>
-        </div>
+        <div>
       </div>
       <script src="/Java/checkLogin.js"></script>
       <script src="/Java/auth.js"></script>
     </header>
-    <!-- thanh nội dung -->
+    <!-- Thanh nội dung -->
     <nav class="noiDung">
       <div class="menu">
-        <a href="/index.html"
-          ><img src="/img/cong.png" alt="home "
-        /></a>
-        <a class="theLoai">Thể Loại</a>
+        <a href="/index.html">
+          <img src="/img/cong.png" alt="home" />
+        </a>
+        
+        <!-- MEGA MENU THỂ LOẠI -->
+        <div class="mega-menu-container">
+          <a class="theLoai" id="theLoaiBtn">
+            Thể Loại
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          
+          <!-- Dropdown Mega Menu -->
+          <div class="mega-dropdown" id="megaDropdown">
+            <div class="mega-content">
+              <div class="mega-column">
+                <h3>🗡️ Võ Hiệp</h3>
+                <a class="genre">Tiên Hiệp</a>
+                <a class="genre">Kiếm Hiệp</a>
+                <a class="genre">Huyền Huyễn</a>
+                <a class="genre">Võng Du</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>💫 Kỳ Huyễn</h3>
+                <a class="genre">Dị Giới</a>
+                <a class="genre">Dị Năng</a>
+                <a class="genre">Khoa Huyễn</a>
+                <a class="genre">Hệ Thống</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>🌀 Xuyên Việt</h3>
+                <a class="genre">Trọng Sinh</a>
+                <a class="genre">Hồi Quy</a>
+                <a class="genre">Xuyên Không</a>
+                <a class="genre">Xuyên Nhanh</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>🏛️ Lịch Sử</h3>
+                <a class="genre">Cổ Đại</a>
+                <a class="genre">Quan Trường</a>
+                <a class="genre">Quân Sự</a>
+                <a class="genre">Chính Trị</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>🔍 Bí Ẩn</h3>
+                <a class="genre">Trinh Thám</a>
+                <a class="genre">Thám Hiểm</a>
+                <a class="genre">Linh Dị</a>
+                <a class="genre">Mạt Thế</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>🎭 Đa Dạng</h3>
+                <a class="genre">Đô Thị</a>
+                <a class="genre">Hài Hước</a>
+                <a class="genre">Điền Văn</a>
+                <a class="genre">Gia Đấu</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>🌏 Phong Cách</h3>
+                <a class="genre">Đông Phương</a>
+                <a class="genre">Phương Tây</a>
+                <a class="genre">Light Novel</a>
+                <a class="genre">Đoản Văn</a>
+              </div>
+              
+              <div class="mega-column">
+                <h3>⭐ Khác</h3>
+                <a class="genre">Nữ Cường</a>
+                <a class="genre">Ngôn Tình</a>
+                <a class="genre">Tiểu Thuyết</a>
+                <a class="genre">Đồng Nhân</a>
+              </div>
+              <div class="mega-column">
+                <a class="genre-all">Tất cả</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <a id="theoDoi" href="/Html/Theodoi.html">Theo Dõi</a>
         <a href="/Html/lichSu.html">Lịch Sử</a>
         <a href="/Html/xepHang.html">Xếp Hạng</a>
       </div>
-    </nav>
-    <!-- hộp thể loại -->
-    <nav class="navbar" id="navBarHide">
-      <ul>
-        <li class="hop">
-          <div class="hopMenu">
-            <div  class="hopTheLoai">
-              <a class="genre">Tiên Hiệp</a>
-              <a class="genre">Kiếm Hiệp</a>
-              <a class="genre">Ngôn Tình</a>
-              <a class="genre">Quan Trường</a>
-              <a class="genre">Võng Du</a>
-              <a class="genre">Khoa Huyễn</a>
-              <a class="genre">Hệ Thống</a>
-            </div>
-            <div class="hopTheLoai">
-              <a class="genre">Huyền Huyễn</a>
-              <a class="genre">Dị Giới</a>
-              <a class="genre">Dị Năng</a>
-              <a class="genre">Quân Sự</a>
-              <a class="genre">Lịch Sử</a>
-              <a class="genre">Xuyên Không</a>
-              <a class="genre">Xuyên Nhanh</a>
-            </div>
-            <div class="hopTheLoai">
-              <a class="genre">Trọng Sinh</a>
-              <a class="genre">Trinh Thám</a>
-              <a class="genre">Thám Hiểm</a>
-              <a class="genre">Linh Dị</a>
-              <a class="genre">Gia Đấu</a>
-              <a class="genre">Đông Phương</a>
-              <a class="genre">Đô Thị</a>
-            </div>
-            <div class="hopTheLoai">
-              <a class="genre">Hài Hước</a>
-              <a class="genre">Điền Văn</a>
-              <a class="genre">Cổ Đại</a>
-              <a class="genre">Mạt Thế</a>
-              <a class="genre">Phương Tây</a>
-              <a class="genre">Light Novel</a>
-              <a class="genre">Đoản Văn</a>
-            </div>
-            <div class="hopTheLoai">
-              <a class="genre">Nữ Cường</a>
-              <a class="genre">Khác</a>
-              <a class="genre-all">Tất cả</a>
-            </div>
-          </div>
-        </li>
-      </ul>
     </nav>
     <script src="/Java/genreSelect.js"></script>
     <script src="/Java/menuTheLoai.js"></script>

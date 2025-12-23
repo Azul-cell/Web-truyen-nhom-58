@@ -1,0 +1,71 @@
+.profile-main {
+  max-width: 900px;
+  margin: 40px auto;
+  background: rgba(20, 20, 20, 0.85);
+  border-radius: 16px;
+  padding: 25px;
+  color: #fff;
+}
+
+/* header */
+.profile-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid #444;
+  padding-bottom: 20px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid gold;
+}
+
+.profile-header .info h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.role {
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* tabs */
+.profile-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tab {
+  background: #2a2a2a;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: goldenrod;
+  color: #000;
+}
+
+/* content */
+.profile-content {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}

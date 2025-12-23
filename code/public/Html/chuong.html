@@ -10,8 +10,12 @@
     <link rel="stylesheet" href="/Css/menu.css" />
     <link rel="stylesheet" href="/Css/footer.css" />
     <link rel="stylesheet" href="/Css/chuong.css" />
-
+    <link rel="stylesheet" href="/Css/user.css" />
     <link rel="shortcut icon" href="/img/logo_no_bg.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -22,21 +26,29 @@
           <a href="/index.html"><img src="/img/logo_no_bg.png" /></a>
         </div>
         <!-- đăng nhập - đăng ký -->
+        
         <div class="button">
           <!-- chưa login -->
-          <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login"
-            >Đăng nhập</a
-          >
-
+          <a id="loginBtn" href="/Html/dangNhap.html" class="btn-login">Đăng nhập</a>
+          
           <!-- đã login -->
-          <div id="userBox" style="display: none">
-            <span id="username"></span>
-            <a id="adminMenu" href="/Html/admin.html" style="display: none">
-              Quản trị
-            </a>
-            <button onclick="logout()">Logout</button>
+          <div id="userBox" style="display: none;">
+            <div class="user-avatar-container">
+              <img id="userAvatar" src="/img/default-avatar.png" alt="Avatar" class="user-avatar">
+              <span id="username" class="username-text"></span>
+            </div>
+            <div class="user-dropdown">
+              <a id="adminMenu" href="/Html/admin.html" style="display:none">
+                <i class="fas fa-user-shield"></i> Quản trị
+              </a>
+              <a href="/Html/profile.html">
+                <i class="fas fa-user"></i> Trang cá nhân
+              </a>
+              <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+              </button>
+            </div>
           </div>
-        </div>
         <script src="/Java/checkLogin.js"></script>
         <script src="/Java/auth.js"></script>
       </div>

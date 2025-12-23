@@ -42,6 +42,6 @@ fetch("/api/me")
     // 👑 ADMIN
     // 👉 Nếu là admin → hiện menu quản trị
     if (user.role === "admin") {
-      document.getElementById("adminMenu").style.display = "inline-block";
+      document.getElementById("adminMenu").style.display = "flex";
     }
   });

@@ -6,7 +6,7 @@ async function loadTheoDoi() {
 
   if (!user) {
     alert("Bạn cần đăng nhập");
-    location.href = "/Html/login.html";
+    location.href = "/Html/dangNhap.html";
     return;
   }
 

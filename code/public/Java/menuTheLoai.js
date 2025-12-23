@@ -1,23 +1,18 @@
-const btnTheLoai = document.querySelector(".theLoai"); // nút "Thể Loại"
-const navBar = document.getElementById("navBarHide"); // thanh navbar thể loại
+const btnTheLoai = document.getElementById("theLoaiBtn"); // nút Thể Loại
+const megaContainer = document.querySelector(".mega-menu-container");
 
-// CLICK để mở/đóng
+// click Thể Loại → mở / đóng
 btnTheLoai.addEventListener("click", (e) => {
-  e.stopPropagation(); // không cho nổi bọt
-
-  if (navBar.style.display === "flex") {
-    navBar.style.display = "none"; // đang mở -> đóng
-  } else {
-    navBar.style.display = "flex"; // đang đóng -> mở
-  }
+  e.stopPropagation();
+  megaContainer.classList.toggle("active");
 });
 
-// CLICK vào menu không đóng
-navBar.addEventListener("click", (e) => {
+// click trong menu → không đóng
+megaContainer.addEventListener("click", (e) => {
   e.stopPropagation();
 });
 
-// CLICK ra ngoài để đóng menu
+// click ra ngoài → đóng
 document.addEventListener("click", () => {
-  navBar.style.display = "none";
+  megaContainer.classList.remove("active");
 });

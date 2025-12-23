@@ -50,6 +50,11 @@ app.use("/api/xephang", xepHangRouter);
 const historyRouter = require("./routes/history");
 app.use("/api/history", historyRouter);
 
+/* ===== DE CU API ===== */
+const decuRoutes = require("./routes/decu");
+
+app.use("/api/decu", decuRoutes);
+
 /* ===== CONNECT DB ===== */
 mongoose
   .connect("mongodb://127.0.0.1:27017/truyen_db")

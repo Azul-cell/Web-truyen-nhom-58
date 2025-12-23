@@ -42,57 +42,6 @@
 }
 /* ===   Hộp Thể Loại   === */
 
-/* Thanh navbar chứa hộp thể loại */
-.navbar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
-
-/* Phần tử bao ngoài của menu */
-.navbar ul li {
-  position: relative;
-  padding: 15px 20px;
-}
-
-/* Hộp thể loại */
-.hopMenu {
-  position: absolute; /*thay đổi vị trí các phần tử mà không ảnh hưởng tới cái khác*/
-  left: 40vh;
-  background: rgba(211, 210, 210, 0.986);
-  padding: 20px;
-  width: 110vh;
-  /* Nhiều cột */
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  z-index: 1000; /* đè lên các phần tử khác*/
-  border-radius: 10px;
-}
-
-/* Cột thể loại */
-.hopTheLoai {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Link thể loại */
-.hopMenu a {
-  text-decoration: none;
-  color: #222222;
-  font-size: 17px;
-  cursor: pointer;
-}
-
-.hopMenu a:hover {
-  color: #f76503;
-}
-
-#navBarHide {
-  display: none;
-}
 .genre,
 .genre-all {
   cursor: pointer;
@@ -101,13 +50,153 @@
   transition: 0.2s;
 }
 
-.genre:hover,
-.genre-all:hover {
-  background: #ffd54f;
-}
-
 .active-genre {
   background: #ffd54f;
   color: #000;
   font-weight: bold;
+}
+/* ===== MEGA MENU THỂ LOẠI ===== */
+
+.mega-menu-container {
+  position: relative;
+}
+
+.mega-menu-container .theLoai {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mega-menu-container .theLoai i {
+  font-size: 12px;
+  transition: transform 0.3s;
+}
+
+.mega-menu-container.active .theLoai i {
+  transform: rotate(180deg);
+}
+
+/* Mega Dropdown */
+.mega-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 120%;
+  transform: translateX(-50%);
+  background: rgba(226, 226, 226, 0.918);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(162, 148, 241, 0.877);
+  padding: 30px;
+  min-width: 900px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-20px);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 1000;
+}
+
+.mega-menu-container.active .mega-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Mega Content */
+.mega-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* Mega Column */
+.mega-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mega-column h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mega-column .genre,
+.mega-column .genre-all {
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.mega-column .genre:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: translateX(5px);
+}
+
+.mega-column .genre-all {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mega-column .genre-all:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Overlay khi mở menu */
+.mega-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 999;
+}
+
+.mega-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .mega-dropdown {
+    min-width: 700px;
+  }
+
+  .mega-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mega-dropdown {
+    min-width: 90vw;
+    padding: 20px;
+  }
+
+  .mega-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
 }

@@ -77,66 +77,7 @@
 .btn-login:hover {
   background: rgba(255, 120, 120, 0.8);
 }
-/* Khung user */
-#userBox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(0, 0, 0, 0.45);
-  padding: 6px 12px;
-  border-radius: 999px;
-  backdrop-filter: blur(6px);
-}
 
-/* Username */
-#username {
-  color: #ffd369;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  white-space: nowrap;
-}
-
-/* Admin nổi bật */
-#username.admin {
-  color: gold;
-  font-weight: 700;
-}
-
-#username.admin::before {
-  content: "👑 ";
-}
-
-/* Link quản trị */
-#adminMenu {
-  color: #4da3ff;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 4px 8px;
-  border-radius: 999px;
-  transition: 0.2s;
-}
-
-#adminMenu:hover {
-  background: rgba(77, 163, 255, 0.2);
-}
-
-/* Logout */
-#userBox button {
-  border: none;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #ff4d4f;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-#userBox button:hover {
-  background: #d9363e;
-}
 /* ===== GỢI Ý TÌM KIẾM ===== */
 .search-suggest {
   position: absolute;

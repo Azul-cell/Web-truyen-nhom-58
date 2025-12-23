@@ -56,6 +56,13 @@ const truyenSchema = new mongoose.Schema(
 
     // ⭐ ĐÁNH GIÁ TRUYỆN
     danhGia: [danhGiaSchema],
+
+    // 👑 ĐỀ CỬ / NỔI BẬT
+    featured: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
   },
   { timestamps: true }
 );

@@ -1,3 +1,17 @@
+const express = require("express");
+const mongoose = require("mongoose");
+
+const router = express.Router();
+
+// MODEL
+const Truyen = require("../models/Truyen");
+
+// MIDDLEWARE
+const isAdmin = require("../middleware/isAdmin");
+
+// GIỚI HẠN SỐ TRUYỆN ĐỀ CỬ
+const MAX_DECU = 10;
+
 /* =================================================
    PATCH /api/decu/:id
    👑 ADMIN BẬT / TẮT ĐỀ CỬ
@@ -63,3 +77,5 @@ router.patch("/:id", isAdmin, async (req, res) => {
     });
   }
 });
+
+module.exports = router;

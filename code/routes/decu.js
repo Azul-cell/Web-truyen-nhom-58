@@ -1,80 +1,55 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Truyen = require("../models/Truyen");
 
 const router = express.Router();
 
-// MODEL
-const Truyen = require("../models/Truyen");
-
-// MIDDLEWARE
-const isAdmin = require("../middleware/isAdmin");
-
-// GIỚI HẠN SỐ TRUYỆN ĐỀ CỬ
+// số truyện đề cử
 const MAX_DECU = 10;
 
 /* =================================================
-   PATCH /api/decu/:id
-   👑 ADMIN BẬT / TẮT ĐỀ CỬ
-   ⭐ GIỚI HẠN SỐ LƯỢNG
+   GET /api/decu
+   🔥 TRUYỆN ĐỀ CỬ TRONG TUẦN
+   ⭐ nhiều lượt đánh giá > 3 sao nhất
 ================================================= */
-router.patch("/:id", isAdmin, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const { id } = req.params;
-    const { featured } = req.body;
+    // mốc 7 ngày trước
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
 
-    /* ==== 1. KIỂM TRA ID ==== */
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        message: "ID không hợp lệ",
-      });
-    }
+    const data = await Truyen.aggregate([
+      // tách từng đánh giá
+      { $unwind: "$danhGia" },
 
-    /* ==== 2. KIỂM TRA DỮ LIỆU ==== */
-    if (typeof featured !== "boolean") {
-      return res.status(400).json({
-        message: "featured phải là boolean",
-      });
-    }
+      // chỉ lấy đánh giá > 3 sao
+      { $match: { "danhGia.soSao": { $gt: 3 } } },
 
-    /* ==== 3. NẾU BẬT ĐỀ CỬ → KIỂM TRA GIỚI HẠN ==== */
-    if (featured === true) {
-      const countFeatured = await Truyen.countDocuments({
-        featured: true,
-      });
+      // nếu sau này bạn thêm createdAt cho danhGia
+      // { $match: { "danhGia.createdAt": { $gte: lastWeek } } },
 
-      if (countFeatured >= MAX_DECU) {
-        return res.status(400).json({
-          message: `Chỉ được tối đa ${MAX_DECU} truyện đề cử`,
-        });
-      }
-    }
+      // gom theo truyện
+      {
+        $group: {
+          _id: "$_id",
+          tenTruyen: { $first: "$tenTruyen" },
+          tacGia: { $first: "$tacGia" },
+          anhBia: { $first: "$anhBia" },
+          soLuot: { $sum: 1 }, // số lượt >3⭐
+        },
+      },
 
-    /* ==== 4. UPDATE TRUYỆN ==== */
-    const truyen = await Truyen.findByIdAndUpdate(
-      id,
-      { featured },
-      { new: true }
-    );
+      // sắp xếp nhiều lượt nhất
+      { $sort: { soLuot: -1 } },
 
-    if (!truyen) {
-      return res.status(404).json({
-        message: "Không tìm thấy truyện",
-      });
-    }
+      // giới hạn
+      { $limit: MAX_DECU },
+    ]);
 
-    /* ==== 5. TRẢ KẾT QUẢ ==== */
-    res.json({
-      success: true,
-      message: featured
-        ? "Đã đưa vào Thư Viện Đề Cử"
-        : "Đã bỏ khỏi Thư Viện Đề Cử",
-      truyen,
-    });
+    res.json(data);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      message: "Lỗi server",
-    });
+    console.error("Lỗi đề cử:", err);
+    res.status(500).json({ message: "Lỗi server" });
   }
 });
 

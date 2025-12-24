@@ -62,7 +62,7 @@ router.post("/:truyenId", auth, async (req, res) => {
 
     const binhLuanMoi = {
       userId: req.user.userId,
-      username: req.user.username, // ⭐ QUAN TRỌNG
+      username: req.user.username, // hiển thị tên
       noiDung: noiDung.trim(),
       createdAt: new Date(),
     };
@@ -82,7 +82,8 @@ router.post("/:truyenId", auth, async (req, res) => {
 
 /* ===============================
    DELETE /api/binhluan/:truyenId/:binhLuanId
-   XOÁ BÌNH LUẬN (CHỦ / ADMIN)
+   XOÁ BÌNH LUẬN
+   QUYỀN: CHỦ COMMENT HOẶC capBac >= 2
 ================================ */
 router.delete("/:truyenId/:binhLuanId", auth, async (req, res) => {
   try {
@@ -109,11 +110,11 @@ router.delete("/:truyenId/:binhLuanId", auth, async (req, res) => {
       return res.status(404).json({ message: "Không tìm thấy bình luận" });
     }
 
-    // chỉ chủ comment hoặc admin
-    if (
-      binhLuan.userId.toString() !== req.user.userId &&
-      req.user.role !== "admin"
-    ) {
+    const laChuBinhLuan = binhLuan.userId.toString() === req.user.userId;
+
+    const laQuanLy = req.user.capBac >= 2;
+
+    if (!laChuBinhLuan && !laQuanLy) {
       return res.status(403).json({ message: "Không có quyền xoá" });
     }
 

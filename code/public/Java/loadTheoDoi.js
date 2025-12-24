@@ -9,8 +9,9 @@ async function loadTheoDoi() {
     // ❌ chưa đăng nhập
     if (res.status === 401) {
       followList.innerHTML = `
-        <p style="color:#ffcc00">Vui lòng đăng nhập để xem truyện theo dõi</p>
-      `;
+        <p style="color:#ffcc00">
+          Vui lòng đăng nhập để xem truyện theo dõi
+        </p>`;
       return;
     }
 
@@ -19,8 +20,7 @@ async function loadTheoDoi() {
     // ❌ không theo dõi truyện nào
     if (!data || data.length === 0) {
       followList.innerHTML = `
-        <p style="color:#aaa">Bạn chưa theo dõi truyện nào</p>
-      `;
+        <p style="color:#aaa">Bạn chưa theo dõi truyện nào</p>`;
       return;
     }
 
@@ -28,33 +28,35 @@ async function loadTheoDoi() {
 
     data.forEach((truyen) => {
       const div = document.createElement("div");
-      div.className = "truyen";
+      div.className = "itemTruyen";
+
+      // 🔥 lấy chương mới nhất
+      const lastChuong =
+        truyen.chuong?.length > 0
+          ? `Chương ${truyen.chuong[truyen.chuong.length - 1].soChuong}`
+          : "Chưa có chương";
 
       div.innerHTML = `
-        <img src="${truyen.cover || "/img/demo.jpg"}" alt="${truyen.title}">
-        <div class="info">
-          <h3 class="tenTruyen">${truyen.title}</h3>
-          <p class="tacGia">${truyen.author || "Đang cập nhật"}</p>
-          <p class="chuongMoi">
-            Chương mới: ${truyen.lastChapter || "?"}
-          </p>
+        <img src="${truyen.anhBia || "/img/default.jpg"}">
+        <div class="ten">${truyen.tenTruyen}</div>
+        <div class="chapter">
+          ✍ ${truyen.tacGia || "Đang cập nhật"}<br>
+          📖 ${lastChuong}
         </div>
       `;
 
-      // click vào truyện → trang chi tiết
-      div.addEventListener("click", () => {
-        window.location.href = `/Html/truyen.html?id=${truyen._id}`;
-      });
+      // click → chi tiết truyện
+      div.onclick = () => {
+        location.href = `/Html/chiTiet.html?id=${truyen._id}`;
+      };
 
       followList.appendChild(div);
     });
   } catch (err) {
     console.error(err);
     followList.innerHTML = `
-      <p style="color:red">Lỗi tải danh sách theo dõi</p>
-    `;
+      <p style="color:red">Lỗi tải danh sách theo dõi</p>`;
   }
 }
 
-// chạy khi load trang
 document.addEventListener("DOMContentLoaded", loadTheoDoi);

@@ -1,63 +1,116 @@
-/* ===== KHUNG CHỨA LOGIN ===== */
-.container {
-  position: relative;
-  width: 420px; /* to hơn */
-  height: 480px; /* cao hơn */
-  perspective: 1200px;
-  margin: 80px auto; /* auto = căn ngang */
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
 }
 
-/* Ẩn checkbox */
-input[type="checkbox"] {
+body {
+  margin: 0;
+}
+
+/* ================= ẨN CHECKBOX TOGGLE ================= */
+#toggle {
   display: none;
 }
 
-/* ===== CARD LOGIN / SIGNUP ===== */
+/* ================= MAIN ================= */
+/* KHÔNG CĂN GIỮA – form bám theo layout web */
+main {
+  display: flex;
+  justify-content: center; /* căn ngang */
+  align-items: flex-start; /* bám trên */
+  padding-top: 40px; /* sát header */
+  padding-bottom: 40px; /* sát footer */
+}
+
+/* ================= CONTAINER ================= */
+/* KHÔNG absolute – KHÔNG translate */
+.container {
+  width: 420px;
+  height: 520px;
+  perspective: 1200px;
+
+  margin: 0 auto; /* chỉ căn ngang */
+}
+
+/* ================= CARD ================= */
 .card {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 105%;
 
-  background: #888888d8;
+  background: rgba(120, 120, 120, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
   border-radius: 20px;
   padding: 40px 35px;
-  box-sizing: border-box;
 
-  color: white;
+  color: #fff;
   backface-visibility: hidden;
   transition: transform 0.8s ease;
 
-  box-shadow: 0 25px 60px rgba(56, 56, 56, 0.507);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+
+  overflow: hidden; /* FIX đốm blur */
 }
 
-/* ===== TIÊU ĐỀ ===== */
+/* ================= TITLE ================= */
 .card h2 {
   text-align: center;
   margin-bottom: 30px;
   font-size: 24px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
-/* ===== INPUT ===== */
+/* ================= INPUT ================= */
 .card input {
   width: 95%;
-  margin: 14px 0;
+  margin: 14px auto;
   padding: 14px;
 
+  display: block;
   border-radius: 10px;
   border: none;
   outline: none;
 
   font-size: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== NÚT ĐĂNG NHẬP / ĐĂNG KÝ ===== */
-.card button {
-  margin-top: 20px;
+/* ================= POLICY ================= */
+.policy {
+  display: flex;
+  align-items: center;
+  gap: 9px;
 
-  width: 70%; /* không full */
+  font-size: 13px;
+  margin: 12px 0 6px;
+  color: #ff0101;
+}
+
+.policy input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.policy a {
+  color: #3654ff;
+  text-decoration: none;
+}
+
+/* ================= BUTTON ================= */
+.card button {
+  margin-top: 18px;
+
+  width: 70%;
   display: block;
   margin-left: auto;
-  margin-right: auto; /* căn giữa */
+  margin-right: auto;
 
   padding: 14px;
   background: linear-gradient(135deg, #facc15, #f59e0b);
@@ -67,14 +120,20 @@ input[type="checkbox"] {
   cursor: pointer;
   font-weight: bold;
   font-size: 15px;
+  transition: 0.3s;
 }
 
-/* ===== CARD SIGNUP (MẶT SAU) ===== */
+.card button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* ================= SIGNUP ================= */
 .signup {
   transform: rotateY(180deg);
 }
 
-/* ===== HIỆU ỨNG FLIP ===== */
+/* ================= FLIP ================= */
 #toggle:checked ~ .login {
   transform: rotateY(180deg);
 }
@@ -83,14 +142,22 @@ input[type="checkbox"] {
   transform: rotateY(360deg);
 }
 
-/* ===== NÚT ĐẢO (TRONG KHUNG) ===== */
+/* ================= SWITCH ================= */
 .switch {
   position: absolute;
-  bottom: 20px; /* nằm TRONG khung */
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
 
   cursor: pointer;
   color: #facc15;
-  font-size: 28px;
+  font-size: 26px;
+
+  opacity: 0.85;
+  transition: 0.3s;
+}
+
+.switch:hover {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.15);
 }

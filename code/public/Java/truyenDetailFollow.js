@@ -1,27 +1,32 @@
 let btnFollow = null;
 let isFollowed = false;
+let currentUser = null; // ✅ cache user
+
+/* ================= LOAD USER ================= */
+async function loadMe() {
+  try {
+    const res = await fetch("/api/me", { credentials: "include" });
+    if (!res.ok) return null;
+    currentUser = await res.json();
+    return currentUser;
+  } catch {
+    return null;
+  }
+}
 
 /* ================= CHECK TRẠNG THÁI ================= */
-async function checkFollowStatus() {
-  const res = await fetch("/api/me", { credentials: "include" });
-  const user = await res.json();
-
-  if (!user || !user.following) {
+function checkFollowStatus() {
+  if (!currentUser || !currentUser.following) {
     isFollowed = false;
-    updateFollowUI();
-    return;
+  } else {
+    isFollowed = currentUser.following.includes(truyenHienTai._id);
   }
-
-  isFollowed = user.following.includes(truyenHienTai._id);
   updateFollowUI();
 }
 
 /* ================= CLICK ================= */
 async function handleFollowClick() {
-  const resMe = await fetch("/api/me", { credentials: "include" });
-  const user = await resMe.json();
-
-  if (!user || !user.username) {
+  if (!currentUser || !currentUser.username) {
     alert("Đăng nhập để theo dõi");
     return;
   }
@@ -35,6 +40,16 @@ async function handleFollowClick() {
   if (!res.ok) return alert(data.message || "Lỗi theo dõi");
 
   isFollowed = data.followed;
+
+  // ✅ cập nhật cache local
+  if (data.followed) {
+    currentUser.following.push(truyenHienTai._id);
+  } else {
+    currentUser.following = currentUser.following.filter(
+      (id) => id !== truyenHienTai._id
+    );
+  }
+
   updateFollowUI();
 }
 
@@ -52,15 +67,16 @@ function updateFollowUI() {
 }
 
 /* ================= KHỞI ĐỘNG ================= */
-document.addEventListener("DOMContentLoaded", () => {
-  // 🔥 LẤY DOM Ở ĐÂY – KHÔNG ĐƯỢC LẤY Ở ĐẦU FILE
+document.addEventListener("DOMContentLoaded", async () => {
   btnFollow = document.getElementById("btnFollow");
   if (!btnFollow) return;
 
   btnFollow.addEventListener("click", handleFollowClick);
 
-  const wait = setInterval(() => {
+  // 🔥 chờ truyện load
+  const wait = setInterval(async () => {
     if (window.truyenHienTai?._id) {
+      await loadMe();
       checkFollowStatus();
       clearInterval(wait);
     }

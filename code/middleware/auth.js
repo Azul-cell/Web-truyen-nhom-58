@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "my_secret_key";
+const JWT_SECRET = "my_secret_key"; // lát nữa sẽ đưa vào .env
 
 module.exports = (req, res, next) => {
   const token = req.cookies.token;
+
   if (!token) {
     req.user = null;
     return next();
@@ -11,11 +12,11 @@ module.exports = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    // ⭐ GÁN RÕ RÀNG
     req.user = {
       userId: decoded.userId,
-      username: decoded.username, // ⭐ QUAN TRỌNG
-      role: decoded.role,
+      username: decoded.username,
+      role: decoded.role, // user | admin
+      capBac: decoded.capBac, // ⭐ 0: độc giả | 1: tác giả | 2: admin
     };
   } catch (err) {
     req.user = null;

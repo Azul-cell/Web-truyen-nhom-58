@@ -17,21 +17,25 @@ const btnCapNhat = document.getElementById("btnCapNhatChuong");
 const btnHuy = document.getElementById("btnHuySua");
 
 /* =================================================
-   CHECK ADMIN
+   CHECK CẤP BẬC (KHÔNG DÙNG ROLE)
 ================================================= */
-async function checkAdmin() {
+async function checkCapBac() {
   try {
     const res = await fetch("/api/me", { credentials: "include" });
     if (!res.ok) return;
 
     const user = await res.json();
-    if (user && user.role === "admin") {
+
+    // ⭐ capBac >= 1 → được quản lý chương
+    if (user && user.capBac >= 1) {
       adminBox.style.display = "block";
     }
   } catch (err) {
-    console.error("Check admin lỗi", err);
+    console.error("Check cấp bậc lỗi", err);
   }
 }
+
+document.addEventListener("DOMContentLoaded", checkCapBac);
 
 /* =================================================
    THÊM CHƯƠNG

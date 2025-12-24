@@ -5,7 +5,7 @@ const router = express.Router();
 
 /* ===============================
    GET /api/xephang/danhgia
-   XẾP HẠNG THEO ĐÁNH GIÁ
+   🏆 TOP TRUYỆN HAY NHẤT MỌI THỜI ĐIỂM
 ================================ */
 router.get("/danhgia", async (req, res) => {
   try {
@@ -14,8 +14,10 @@ router.get("/danhgia", async (req, res) => {
     const ketQua = truyens
       .map((t) => {
         const ds = t.danhGia || [];
+        if (ds.length === 0) return null;
+
         const tong = ds.reduce((s, d) => s + d.soSao, 0);
-        const diemTB = ds.length ? tong / ds.length : 0;
+        const diemTB = tong / ds.length;
 
         return {
           _id: t._id,
@@ -25,7 +27,12 @@ router.get("/danhgia", async (req, res) => {
           soLuot: ds.length,
         };
       })
-      .sort((a, b) => b.diemTB - a.diemTB);
+      .filter(Boolean)
+      // ⭐ ưu tiên điểm, sau đó số lượt
+      .sort((a, b) => {
+        if (b.diemTB !== a.diemTB) return b.diemTB - a.diemTB;
+        return b.soLuot - a.soLuot;
+      });
 
     res.json(ketQua);
   } catch (err) {

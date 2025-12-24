@@ -1,61 +1,83 @@
-// ===== CẤU HÌNH =====
-const soTruyen = 24;
+/* ===============================
+   CẤU HÌNH CHUNG (GLOBAL)
+================================ */
+window.soTruyen = 24;
 
-// ===== STATE CHUNG =====
-let danhSachTruyen = [];
-let truyenDangLoc = [];
-let truyenDangTim = [];
-let trangHienTai = 1;
+/* ===============================
+   STATE CHUNG (DÙNG CHO MỌI FILE)
+================================ */
+window.truyenGoc = []; // danh sách truyện gốc
+window.truyenDangLoc = []; // sau khi lọc thể loại
+window.truyenDangTim = []; // sau khi tìm kiếm
+window.trangHienTai = 1;
 
-// ===== DOM =====
-const listFeatured = document.getElementById("listFeatured");
+/* ===============================
+   DOM
+================================ */
 const listTruyen = document.getElementById("listTruyen");
 
-// ===== LOAD =====
+/* ===============================
+   LOAD DANH SÁCH TRUYỆN
+================================ */
 async function loadTruyen() {
-  const res = await fetch("http://localhost:4000/api/truyen");
-  danhSachTruyen = await res.json();
+  try {
+    const res = await fetch("/api/truyen");
+    const data = await res.json();
 
-  truyenDangLoc = danhSachTruyen;
-  truyenDangTim = truyenDangLoc;
+    // gán state gốc
+    window.truyenGoc = data;
+    window.truyenDangLoc = data;
+    window.truyenDangTim = data;
+    window.trangHienTai = 1;
 
-  renderAll();
+    renderAll();
+  } catch (err) {
+    console.error("❌ Lỗi load truyện:", err);
+  }
 }
 
-// ===== RENDER =====
+/* ===============================
+   RENDER TỔNG
+================================ */
 function renderAll() {
-  renderFeatured();
   renderNew();
-  renderButtons(); // từ phanTrang.js
+  if (typeof renderButtons === "function") {
+    renderButtons(); // từ phanTrang.js
+  }
 }
 
-function renderFeatured() {
-  listFeatured.innerHTML = "";
-  truyenDangTim.slice(0, 3).forEach((t) => {
-    listFeatured.innerHTML += renderItem(t);
-  });
-}
-
+/* ===============================
+   RENDER DANH SÁCH TRUYỆN
+================================ */
 function renderNew() {
+  if (!listTruyen) return;
+
   listTruyen.innerHTML = "";
 
-  const start = (trangHienTai - 1) * soTruyen;
-  const end = trangHienTai * soTruyen;
+  const start = (window.trangHienTai - 1) * window.soTruyen;
+  const end = window.trangHienTai * window.soTruyen;
 
-  truyenDangTim.slice(start, end).forEach((t) => {
+  window.truyenDangTim.slice(start, end).forEach((t) => {
     listTruyen.innerHTML += renderItem(t);
   });
 }
 
+/* ===============================
+   RENDER 1 TRUYỆN
+================================ */
 function renderItem(t) {
   return `
     <div class="truyen" data-id="${t._id}">
-      <img src="${t.anhBia || "/img/default.jpg"}">
+      <img src="${t.anhBia || "/img/default.jpg"}" />
       <p class="ten">${t.tenTruyen}</p>
-      <p class="chapter">Tác giả: ${t.tacGia}</p>
+      <p class="chapter">Tác giả: ${t.tacGia || "Đang cập nhật"}</p>
     </div>
   `;
 }
+
+/* ===============================
+   CLICK TRUYỆN → CHI TIẾT
+================================ */
 document.addEventListener("click", (e) => {
   const truyen = e.target.closest(".truyen");
   if (!truyen) return;
@@ -63,9 +85,10 @@ document.addEventListener("click", (e) => {
   const id = truyen.dataset.id;
   if (!id) return;
 
-  // chuyển sang trang chi tiết
   window.location.href = `/Html/truyen.html?id=${id}`;
 });
 
-// ===== CHẠY =====
-loadTruyen();
+/* ===============================
+   KHỞI ĐỘNG
+================================ */
+document.addEventListener("DOMContentLoaded", loadTruyen);

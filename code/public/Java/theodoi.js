@@ -1,49 +1,66 @@
 const followList = document.getElementById("followList");
 
 async function loadTheoDoi() {
-  const resMe = await fetch("/api/me", { credentials: "include" });
-  const user = await resMe.json();
+  try {
+    /* ===== CHECK LOGIN ===== */
+    const resMe = await fetch("/api/me", { credentials: "include" });
 
-  if (!user) {
-    alert("Bạn cần đăng nhập");
-    location.href = "/Html/dangNhap.html";
-    return;
-  }
+    if (!resMe.ok) {
+      followList.innerHTML = `
+        <p style="color:#ffcc00">
+          Vui lòng đăng nhập để xem truyện theo dõi
+        </p>
+      `;
+      return;
+    }
 
-  const res = await fetch("/api/follow", { credentials: "include" });
-  const ds = await res.json();
+    /* ===== LOAD FOLLOWING ===== */
+    const res = await fetch("/api/follow", {
+      credentials: "include",
+    });
 
-  followList.innerHTML = "";
+    if (!res.ok) {
+      throw new Error("Load theo dõi thất bại");
+    }
 
-  if (!ds || ds.length === 0) {
-    followList.innerHTML = "<p>Bạn chưa theo dõi truyện nào</p>";
-    return;
-  }
+    const ds = await res.json();
+    followList.innerHTML = "";
 
-  ds.forEach((truyen) => {
-    const div = document.createElement("div");
-    div.className = "truyen";
+    if (!ds || ds.length === 0) {
+      followList.innerHTML = `
+        <p style="color:#aaa">Bạn chưa theo dõi truyện nào</p>
+      `;
+      return;
+    }
 
-    div.innerHTML = `
-      <img src="${truyen.anhBia || "/img/default.jpg"}" alt="${
-      truyen.tenTruyen
-    }">
-      <div class="ten">${truyen.tenTruyen}</div>
-      <div class="chapter">
-        ${
-          truyen.chuong?.length
-            ? "Chương " + truyen.chuong[truyen.chuong.length - 1].soChuong
-            : "Chưa có chương"
-        }
-      </div>
+    /* ===== RENDER ===== */
+    ds.forEach((truyen) => {
+      const div = document.createElement("div");
+      div.className = "itemTruyen";
+
+      const lastChuong =
+        truyen.chuong?.length > 0
+          ? `Chương ${truyen.chuong[truyen.chuong.length - 1].soChuong}`
+          : "Chưa có chương";
+
+      div.innerHTML = `
+        <img src="${truyen.anhBia || "/img/default.jpg"}">
+        <div class="ten">${truyen.tenTruyen}</div>
+        <div class="chapter">${lastChuong}</div>
+      `;
+
+      div.onclick = () => {
+        location.href = `/Html/chiTiet.html?id=${truyen._id}`;
+      };
+
+      followList.appendChild(div);
+    });
+  } catch (err) {
+    console.error(err);
+    followList.innerHTML = `
+      <p style="color:red">❌ Lỗi tải danh sách theo dõi</p>
     `;
-
-    div.onclick = () => {
-      location.href = "/Html/truyen.html?id=" + truyen._id;
-    };
-
-    followList.appendChild(div);
-  });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", loadTheoDoi);

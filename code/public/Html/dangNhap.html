@@ -176,26 +176,45 @@
     <main>
       <div class="container">
         <input type="checkbox" id="toggle">
-    <!-- LOGIN -->
-    
+
+        <!-- LOGIN -->
         <div class="card login">
           <h2>Đăng nhập</h2>
           <input id="login-username" placeholder="Username" />
           <input id="login-password" type="password" placeholder="Password" />
           <button onclick="login()">LOGIN</button>
         </div>
-    <!-- SIGNUP -->
+
+        <!-- SIGNUP -->
         <div class="card signup">
           <h2>Đăng ký</h2>
           <input id="reg-username" placeholder="Username" />
+          <input id="reg-email" type="email" placeholder="Email (bắt buộc)" />
           <input id="reg-password" type="password" placeholder="Password" />
-          <input id="reg-password-confirm" type="password" placeholder="Nhập lại mật khẩu" />
+          <input
+            id="reg-password-confirm"
+            type="password"
+            placeholder="Nhập lại mật khẩu"
+          />
+
+          <div class="policy">
+            <input type="checkbox" id="accept-policy" />
+            <label for="accept-policy">
+              Tôi đồng ý với
+              <a href="/Html/dieuKhoan.html" target="_blank">
+                Điều khoản người tiêu dùng
+              </a>
+            </label>
+          </div>
+
           <button onclick="register()">SIGN UP</button>
         </div>
-        <label for="toggle" class="switch">⇄</label>
-      </div>
-      <script src="/Java/auth.js"></script>
 
+        <!-- NÚT CHUYỂN LOGIN / SIGNUP -->
+        <label for="toggle" class="switch">⇄</label>
+
+        <script src="/Java/auth.js"></script>
+      </div>
     </main>
     <!-- phần đáy trang --> 
     <footer>

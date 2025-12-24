@@ -2,8 +2,7 @@ const binhLuanList = document.getElementById("binhLuanList");
 const inputNoiDung = document.getElementById("noiDungBinhLuan");
 const btnGui = document.getElementById("btnGuiBinhLuan");
 
-let currentUser = null;
-
+window.currentUser = window.currentUser || null;
 /* ================= KIỂM TRA ĐĂNG NHẬP ================= */
 async function checkLoginForComment() {
   try {
@@ -49,7 +48,7 @@ async function loadBinhLuan() {
       // 👉 kiểm tra quyền xoá
       const coQuyenXoa =
         currentUser &&
-        (currentUser.role === "admin" || currentUser._id === bl.userId);
+        (currentUser._id === bl.userId || currentUser.capBac >= 2);
 
       div.innerHTML = `
         <div class="bl-header">

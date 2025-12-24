@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Truyen = require("../models/Truyen");
-const isAdmin = require("../middleware/isAdmin");
+const requireCapBac = require("../middleware/requireCapBac");
 
 const router = express.Router();
 
 /* =================================================
    GET /api/truyen
+   ✅ AI CŨNG XEM ĐƯỢC
 ================================================= */
 router.get("/", async (req, res) => {
   try {
@@ -22,13 +23,11 @@ router.get("/", async (req, res) => {
 ================================================= */
 router.get("/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "ID không hợp lệ" });
     }
 
-    const truyen = await Truyen.findById(id);
+    const truyen = await Truyen.findById(req.params.id);
     if (!truyen) {
       return res.status(404).json({ message: "Không tìm thấy truyện" });
     }
@@ -41,26 +40,34 @@ router.get("/:id", async (req, res) => {
 
 /* =================================================
    POST /api/truyen
+   🔒 capBac >= 1 (người đăng + admin)
 ================================================= */
-router.post("/", isAdmin, async (req, res) => {
+router.post("/", requireCapBac(1), async (req, res) => {
   try {
     const { tenTruyen, tacGia, theLoai, moTa, anhBia } = req.body;
 
-    if (!tenTruyen || !tacGia || !Array.isArray(theLoai) || !theLoai.length) {
+    if (
+      !tenTruyen ||
+      !tacGia || // 👈 bắt buộc nhập tay
+      !Array.isArray(theLoai) ||
+      !theLoai.length
+    ) {
       return res.status(400).json({ message: "Thiếu dữ liệu" });
     }
 
     const truyen = await Truyen.create({
       tenTruyen,
-      tacGia,
+      tacGia, // ✅ GIỮ NGUYÊN TÊN NHẬP
+      tacGiaId: req.user.userId, // ⭐ BẮT BUỘC (phân quyền)
+      capBacTacGia: req.user.capBac ?? 1,
       theLoai,
       moTa,
       anhBia,
-      createdBy: req.user.userId,
     });
 
     res.json({ message: "Thêm truyện thành công", truyen });
   } catch (err) {
+    console.error("❌ Lỗi tạo truyện:", err);
     res.status(500).json({ message: "Lỗi server" });
   }
 });
@@ -68,26 +75,7 @@ router.post("/", isAdmin, async (req, res) => {
 /* =================================================
    GET /api/truyen/:id/chuong
 ================================================= */
-router.get("/:id/chuong", async (req, res) => {
-  try {
-    const truyen = await Truyen.findById(req.params.id);
-    if (!truyen) {
-      return res.status(404).json({ message: "Không tìm thấy truyện" });
-    }
-
-    // sắp xếp chương tăng dần
-    const dsChuong = truyen.chuong.sort((a, b) => a.soChuong - b.soChuong);
-    res.json(dsChuong);
-  } catch (err) {
-    res.status(500).json({ message: "Lỗi server" });
-  }
-});
-
-/* =================================================
-   POST /api/truyen/:id/chuong
-   ➕ THÊM CHƯƠNG (ADMIN)
-================================================= */
-router.post("/:id/chuong", isAdmin, async (req, res) => {
+router.post("/:id/chuong", requireCapBac(1), async (req, res) => {
   try {
     const { soChuong, tieuDe, noiDung } = req.body;
 
@@ -100,7 +88,13 @@ router.post("/:id/chuong", isAdmin, async (req, res) => {
       return res.status(404).json({ message: "Không tìm thấy truyện" });
     }
 
-    // chặn trùng chương
+    const isOwner = truyen.tacGiaId.toString() === req.user.userId;
+    const isAdmin = req.user.capBac === 2;
+
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ message: "Không có quyền thêm chương" });
+    }
+
     const trung = truyen.chuong.find((c) => c.soChuong === Number(soChuong));
     if (trung) {
       return res.status(400).json({ message: "Chương đã tồn tại" });
@@ -121,16 +115,23 @@ router.post("/:id/chuong", isAdmin, async (req, res) => {
 
 /* =================================================
    PUT /api/truyen/:id/chuong/:soChuong
-   ✏️ SỬA CHƯƠNG (ADMIN)
+   🔒 capBac >= 1
 ================================================= */
-router.put("/:id/chuong/:soChuong", isAdmin, async (req, res) => {
+router.put("/:id/chuong/:soChuong", requireCapBac(1), async (req, res) => {
   try {
-    const { tieuDe, noiDung } = req.body;
     const soChuong = Number(req.params.soChuong);
+    const { tieuDe, noiDung } = req.body;
 
     const truyen = await Truyen.findById(req.params.id);
     if (!truyen) {
       return res.status(404).json({ message: "Không tìm thấy truyện" });
+    }
+
+    const isOwner = truyen.tacGiaId.toString() === req.user.userId;
+    const isAdmin = req.user.capBac === 2;
+
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ message: "Không có quyền sửa chương" });
     }
 
     const chuong = truyen.chuong.find((c) => c.soChuong === soChuong);
@@ -150,15 +151,22 @@ router.put("/:id/chuong/:soChuong", isAdmin, async (req, res) => {
 
 /* =================================================
    DELETE /api/truyen/:id/chuong/:soChuong
-   🗑️ XOÁ CHƯƠNG (ADMIN)
+   🔒 capBac >= 2 (CHỈ ADMIN XOÁ)
 ================================================= */
-router.delete("/:id/chuong/:soChuong", isAdmin, async (req, res) => {
+router.delete("/:id/chuong/:soChuong", requireCapBac(1), async (req, res) => {
   try {
     const soChuong = Number(req.params.soChuong);
 
     const truyen = await Truyen.findById(req.params.id);
     if (!truyen) {
       return res.status(404).json({ message: "Không tìm thấy truyện" });
+    }
+
+    const isOwner = truyen.tacGiaId.toString() === req.user.userId;
+    const isAdmin = req.user.capBac === 2;
+
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ message: "Không có quyền xoá chương" });
     }
 
     const index = truyen.chuong.findIndex((c) => c.soChuong === soChuong);

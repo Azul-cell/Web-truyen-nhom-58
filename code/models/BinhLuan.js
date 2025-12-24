@@ -12,9 +12,15 @@ const binhLuanSchema = new mongoose.Schema(
       ref: "User",
     },
     username: {
-      type: String, // ⭐ HIỂN THỊ TÊN
+      type: String,
       required: true,
     },
+
+    capBac: {
+      type: Number,
+      default: 0, // 0 độc giả | 1 tác giả | 2 admin
+    },
+
     noiDung: {
       type: String,
       required: true,

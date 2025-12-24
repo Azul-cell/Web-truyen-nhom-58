@@ -14,7 +14,10 @@ document.querySelectorAll(".genre").forEach((item) => {
     const theLoai = item.textContent.trim();
     trangHienTai = 1;
 
-    truyenDangLoc = danhSachTruyen.filter((t) => t.theLoai.includes(theLoai));
+    // ⭐ DÙNG DANH SÁCH GỐC CỦA TRANG
+    truyenDangLoc = truyenGoc.filter(
+      (t) => Array.isArray(t.theLoai) && t.theLoai.includes(theLoai)
+    );
 
     truyenDangTim = truyenDangLoc;
     renderAll();
@@ -26,7 +29,10 @@ btnAll?.addEventListener("click", () => {
   btnAll.classList.add("active-genre");
 
   trangHienTai = 1;
-  truyenDangLoc = danhSachTruyen;
+
+  // ⭐ RESET VỀ DANH SÁCH GỐC
+  truyenDangLoc = truyenGoc;
   truyenDangTim = truyenDangLoc;
+
   renderAll();
 });

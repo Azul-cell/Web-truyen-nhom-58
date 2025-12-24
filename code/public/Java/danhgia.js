@@ -1,7 +1,9 @@
 let stars = [];
 const ratingAvg = document.getElementById("ratingAvg");
 
-/* ================= RENDER SAO ================= */
+/* =================================================
+   RENDER SAO (★ / ☆)
+================================================= */
 function renderStars(soSao) {
   stars.forEach((s) => {
     const val = Number(s.dataset.star);
@@ -9,53 +11,90 @@ function renderStars(soSao) {
   });
 }
 
-/* ================= LOAD AVG ================= */
+/* =================================================
+   LOAD ĐIỂM TRUNG BÌNH
+================================================= */
 async function loadRatingAvg() {
   if (!window.truyenHienTai?._id) return;
 
-  const res = await fetch(`/api/danhgia/${truyenHienTai._id}`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`/api/danhgia/${truyenHienTai._id}`);
+    if (!res.ok) return;
 
-  ratingAvg.textContent = `⭐ ${data.avg} / 5 (${data.count} lượt)`;
+    const data = await res.json();
+    ratingAvg.textContent = `⭐ ${data.avg} / 5 (${data.count} lượt)`;
+  } catch (err) {
+    console.error("Load rating avg error:", err);
+  }
 }
 
-/* ================= LOAD SAO USER ================= */
+/* =================================================
+   LOAD SAO CỦA USER HIỆN TẠI
+================================================= */
 async function loadMyRating() {
-  const res = await fetch(`/api/danhgia/${truyenHienTai._id}/me`, {
-    credentials: "include",
-  });
+  if (!window.truyenHienTai?._id) return;
 
-  const data = await res.json();
-  renderStars(data.soSao || 0);
+  try {
+    const res = await fetch(`/api/danhgia/${truyenHienTai._id}/me`, {
+      credentials: "same-origin",
+    });
+
+    // ❌ chưa đăng nhập
+    if (!res.ok) {
+      renderStars(0);
+      return;
+    }
+
+    const data = await res.json();
+    renderStars(data.soSao || 0);
+  } catch (err) {
+    console.error("Load my rating error:", err);
+  }
 }
 
-/* ================= CLICK ================= */
+/* =================================================
+   CLICK SAO
+================================================= */
 function bindStarEvents() {
   stars.forEach((star) => {
     star.onclick = async () => {
+      if (!window.truyenHienTai?._id) return;
+
       const soSao = Number(star.dataset.star);
 
-      const res = await fetch(`/api/danhgia/${truyenHienTai._id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ soSao }),
-      });
+      try {
+        const res = await fetch(`/api/danhgia/${truyenHienTai._id}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({ soSao }),
+        });
 
-      const data = await res.json();
-      if (!res.ok) return alert(data.message);
+        const data = await res.json();
 
-      renderStars(soSao);
-      loadRatingAvg();
+        // ❌ chưa đăng nhập hoặc lỗi
+        if (!res.ok) {
+          alert(data.message || "Vui lòng đăng nhập để đánh giá");
+          return;
+        }
+
+        renderStars(soSao);
+        loadRatingAvg();
+      } catch (err) {
+        alert("Không gửi được đánh giá");
+      }
     };
   });
 }
 
-/* ================= INIT ================= */
+/* =================================================
+   INIT
+================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   stars = document.querySelectorAll("#ratingStars span");
   bindStarEvents();
 
+  // Đợi truyenHienTai được load (từ file khác)
   const wait = setInterval(() => {
     if (window.truyenHienTai?._id) {
       loadRatingAvg();

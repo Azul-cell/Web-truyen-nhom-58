@@ -3,7 +3,8 @@ module.exports = function isAdmin(req, res, next) {
     return res.status(401).json({ message: "Chưa đăng nhập" });
   }
 
-  if (req.user.role !== "admin") {
+  // ⭐ Admin = capBac === 2
+  if (req.user.capBac !== 2) {
     return res.status(403).json({ message: "Không có quyền admin" });
   }
 

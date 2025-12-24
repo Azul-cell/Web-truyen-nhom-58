@@ -7,20 +7,36 @@ function renderChuong(dsChuong, truyenId) {
     return;
   }
 
+  // 👉 LẤY USER HIỆN TẠI (đã có từ /api/me)
+  // checkAdmin() đã chạy trước đó
+  const user = window.currentUser || null;
+
+  // 👉 kiểm tra quyền đăng / sửa chương
+  const coQuyenQuanLyChuong = user && user.capBac >= 1;
+
   dsChuong.forEach((c) => {
     const div = document.createElement("div");
     div.className = "chuong-item";
 
-    div.innerHTML = `
-      <span><b>Chương ${c.soChuong}:</b> ${c.tieuDe}</span>
-      <span class="chuong-tools">
+    // 👉 chỉ render nút ✏️ 🗑️ nếu có quyền
+    const toolsHTML = coQuyenQuanLyChuong
+      ? `
+        <span class="chuong-tools">
           <button onclick="chonSuaChuong(${c.soChuong})">✏️</button>
           <button onclick="xoaChuong(${c.soChuong})">🗑️</button>
-      </span>
+        </span>
+      `
+      : "";
+
+    div.innerHTML = `
+      <span><b>Chương ${c.soChuong}:</b> ${c.tieuDe}</span>
+      ${toolsHTML}
     `;
 
+    // 👉 click đọc chương (trừ khi bấm nút)
     div.onclick = (e) => {
       if (e.target.tagName === "BUTTON") return;
+
       location.href = `/Html/chuong.html?truyen=${truyenId}&chuong=${c.soChuong}`;
     };
 

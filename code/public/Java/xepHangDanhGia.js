@@ -22,7 +22,7 @@ async function loadXepHang() {
       div.className = "truyen";
 
       div.innerHTML = `
-        <a href="/Html/chiTiet.html?id=${t._id}">
+        <a href="/Html/truyen.html?id=${t._id}">
           <img src="${t.anhBia || "/img/default.jpg"}" />
         </a>
 

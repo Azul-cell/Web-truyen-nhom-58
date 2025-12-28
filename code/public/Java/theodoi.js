@@ -50,7 +50,7 @@ async function loadTheoDoi() {
       `;
 
       div.onclick = () => {
-        location.href = `/Html/chiTiet.html?id=${truyen._id}`;
+        location.href = `/Html/truyen.html?id=${truyen._id}`;
       };
 
       followList.appendChild(div);

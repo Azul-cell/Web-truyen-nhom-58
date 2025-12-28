@@ -1,71 +1,156 @@
-.profile-main {
-  max-width: 900px;
-  margin: 40px auto;
-  background: rgba(20, 20, 20, 0.85);
-  border-radius: 16px;
-  padding: 25px;
-  color: #fff;
+/* ========== RESET ========== */
+.profile-container,
+.profile-container * {
+  box-sizing: border-box;
 }
 
-/* header */
+/* ========== CONTAINER ========== */
+.profile-container {
+  max-width: 720px;
+  margin: 60px auto;
+  padding: 26px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  color: #eee;
+}
+
+/* ========== HEADER ========== */
 .profile-header {
   display: flex;
-  gap: 20px;
   align-items: center;
-  border-bottom: 1px solid #444;
-  padding-bottom: 20px;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-bottom: 22px;
 }
 
-.avatar {
-  width: 90px;
-  height: 90px;
+.profile-header img {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
+  border: 3px solid #f5c16c;
   object-fit: cover;
-  border: 2px solid gold;
 }
 
-.profile-header .info h2 {
+.profile-header h2 {
   margin: 0;
-  font-size: 22px;
+  font-size: 20px;
+  color: #ffd27a;
 }
 
-.role {
-  color: #ccc;
+.profile-header p {
+  margin-top: 6px;
   font-size: 14px;
+  color: #ccc;
 }
 
-/* tabs */
-.profile-tabs {
+/* ========== TABS ========== */
+.tabs {
   display: flex;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.tab {
-  background: #2a2a2a;
-  color: #fff;
+.tabs button {
+  flex: 1;
+  padding: 12px 0;
   border: none;
-  padding: 8px 16px;
-  border-radius: 10px;
+  border-radius: 14px;
+  background: #222;
+  color: #ccc;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.tab.active {
-  background: goldenrod;
-  color: #000;
+.tabs button.active {
+  background: linear-gradient(135deg, #ffd27a, #f0b429);
+  color: #222;
 }
 
-/* content */
-.profile-content {
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 20px;
-}
-
+/* ========== TAB CONTENT ========== */
 .tab-content {
   display: none;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(20, 20, 20, 0.85);
 }
 
 .tab-content.active {
   display: block;
+}
+
+/* ========== USER INFO (FIX EMAIL + CHỒNG CHỮ) ========== */
+#user p {
+  margin: 10px 0;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#user b {
+  color: #ffd27a;
+}
+
+#email {
+  color: #ffd27a;
+  word-break: break-all;
+}
+
+/* ========== CARD (TRUYỆN / USER) ========== */
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.card b {
+  font-size: 15px;
+  color: #fff;
+}
+
+.card small {
+  display: block;
+  font-size: 13px;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+/* ========== BUTTON ========== */
+.card button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffd27a, #f0b429);
+  color: #222;
+  font-weight: 600;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card button {
+    width: 100%;
+  }
 }

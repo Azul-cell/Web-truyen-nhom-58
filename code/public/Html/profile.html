@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/Css/mainkhung.css" />
     <link rel="stylesheet" href="/Css/maincontent.css">
     <link rel="stylesheet" href="/Css/footer.css" />
-    <link rel="stylesheet" href="/Css/login.css">
     <link rel="stylesheet" href="/Css/user.css">
     <link rel="stylesheet" href="/Css/profile.css">
     <link
@@ -174,41 +173,52 @@
     </nav>
     <script src="/Java/menuTheLoai.js"></script>
     <!-- main -->
-    <main class="profile-main">
-  <!-- ===== THÔNG TIN CÁ NHÂN ===== -->
-  <section class="profile-header">
-    <img
-      class="avatar"
-      src="/img/avatar-default.png"
-      alt="avatar"
-    />
-    <div class="info">
-      <h2 id="username">Unluckk</h2>
-      <p class="role">👤 Đạo hữu</p>
-    </div>
-  </section>
+    <main>
+  <div class="profile-container">
+    <!-- HEADER -->
+    <div class="profile-header">
+      <img id="avatar" src="/img/default-avatar.png" />
 
-  <!-- ===== TAB ===== -->
-  <section class="profile-tabs">
-    <button class="tab active" data-tab="theodoi">📌 Theo dõi</button>
-    <button class="tab" data-tab="lichsu">🕒 Lịch sử</button>
-    <button class="tab" data-tab="binhluan">💬 Bình luận</button>
-  </section>
-
-  <!-- ===== NỘI DUNG ===== -->
-  <section class="profile-content">
-    <div class="tab-content active" id="theodoi">
-      <p>📚 Danh sách truyện đang theo dõi</p>
+      <div class="profile-info">
+        <h2 id="profileUsername"></h2>
+        <p id="role"></p>
+      </div>
     </div>
 
-    <div class="tab-content" id="lichsu">
-      <p>🕒 Lịch sử đọc truyện</p>
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="active" data-tab="user">👤 Thông tin</button>
+      <button data-tab="author" id="tab-author" style="display:none">
+        📚 Truyện đã đăng
+      </button>
+      <button data-tab="admin" id="tab-admin" style="display:none">
+        🛠 Quản lý user
+      </button>
     </div>
 
-    <div class="tab-content" id="binhluan">
-      <p>💬 Bình luận của bạn</p>
-    </div>
-  </section>
+    <!-- USER -->
+    <section id="user" class="tab-content active">
+      <h3>👤 Thông tin tài khoản</h3>
+
+      <div class="info-line">
+        <span>Tên đăng nhập</span>
+        <b id="user-name"></b>
+      </div>
+
+      <div class="info-line">
+        <span>Email</span>
+        <b id="email"></b>
+      </div>
+    </section>
+
+    <!-- AUTHOR -->
+    <section id="author" class="tab-content"></section>
+
+    <!-- ADMIN -->
+    <section id="admin" class="tab-content"></section>
+  </div>
+
+  <script src="/Java/profile.js"></script>
 </main>
 
     <!-- phần đáy trang --> 

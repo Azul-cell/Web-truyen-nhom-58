@@ -6,28 +6,33 @@ const router = express.Router();
 
 /* ===============================
    GET /api/me
-   LẤY USER ĐANG ĐĂNG NHẬP
 ================================ */
 router.get("/", auth, async (req, res) => {
   try {
-    // ❌ chưa đăng nhập
     if (!req.user) {
       return res.status(401).json(null);
     }
 
     const user = await User.findById(req.user.userId).select(
-      "username capBac following"
+      "_id username email capBac banned following"
     );
 
     if (!user) {
       return res.status(401).json(null);
     }
 
-    // ✅ dữ liệu an toàn cho frontend
+    // ❌ user bị ban → đá ra
+    if (user.banned) {
+      return res.status(403).json({ message: "Tài khoản đã bị khoá" });
+    }
+
+    // ✅ trả đủ cho frontend
     res.json({
       _id: user._id,
       username: user.username,
-      capBac: user.capBac ?? 0, // 🔥 fallback chuẩn
+      email: user.email,
+      capBac: user.capBac ?? 0,
+      banned: user.banned ?? false,
       following: user.following ?? [],
     });
   } catch (err) {

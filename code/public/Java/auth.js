@@ -1,4 +1,6 @@
-/* ================= REGISTER ================= */
+/* =================================================
+   REGISTER
+================================================= */
 async function register() {
   const username = document.getElementById("reg-username").value.trim();
   const email = document.getElementById("reg-email").value.trim();
@@ -6,7 +8,7 @@ async function register() {
   const confirmPassword = document.getElementById("reg-password-confirm").value;
   const acceptPolicy = document.getElementById("accept-policy").checked;
 
-  // ===== VALIDATE =====
+  /* ===== VALIDATE ===== */
   if (username.length < 5) {
     alert("Username phải từ 5 ký tự trở lên");
     return;
@@ -23,7 +25,7 @@ async function register() {
   }
 
   if (password.length < 6) {
-    alert("Mật khẩu phải trên 6 ký tự");
+    alert("Mật khẩu phải từ 6 ký tự trở lên");
     return;
   }
 
@@ -42,11 +44,11 @@ async function register() {
     return;
   }
 
-  // ===== SEND =====
+  /* ===== SEND ===== */
   const res = await fetch("/api/auth/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "same-origin",
+    credentials: "include", // ⭐ BẮT BUỘC
     body: JSON.stringify({ username, email, password }),
   });
 
@@ -61,7 +63,9 @@ async function register() {
   }
 }
 
-/* ================= LOGIN ================= */
+/* =================================================
+   LOGIN
+================================================= */
 async function login() {
   const username = document.getElementById("login-username").value.trim();
   const password = document.getElementById("login-password").value;
@@ -74,11 +78,12 @@ async function login() {
   const res = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "same-origin",
+    credentials: "include", // ⭐ BẮT BUỘC
     body: JSON.stringify({ username, password }),
   });
 
   const data = await res.json();
+
   if (!res.ok) {
     alert(data.message || "Đăng nhập thất bại");
     return;
@@ -88,10 +93,14 @@ async function login() {
   location.href = "/index.html";
 }
 
-/* ================= LOGOUT ================= */
-function logout() {
-  fetch("/api/auth/logout", {
+/* =================================================
+   LOGOUT
+================================================= */
+async function logout() {
+  await fetch("/api/auth/logout", {
     method: "POST",
-    credentials: "same-origin",
-  }).then(() => location.reload());
+    credentials: "include", // ⭐
+  });
+
+  location.reload();
 }

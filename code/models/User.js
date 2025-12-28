@@ -1,36 +1,25 @@
 const mongoose = require("mongoose");
 
-/* =================================================
-   LỊCH SỬ ĐỌC TRUYỆN
-   - Lưu truyện đã đọc
-   - lastReadAt để sắp xếp lịch sử
-================================================= */
+/* ================= LỊCH SỬ ĐỌC ================= */
 const historySchema = new mongoose.Schema(
   {
-    // ID truyện đã đọc
     truyenId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Truyen",
       required: true,
     },
-
-    // Thời điểm đọc gần nhất
     lastReadAt: {
       type: Date,
       default: Date.now,
     },
   },
-  { _id: false } // không tạo _id cho mỗi item
+  { _id: false }
 );
 
-/* =================================================
-   USER
-================================================= */
+/* ================= USER ================= */
 const userSchema = new mongoose.Schema(
   {
-    /* ---------- THÔNG TIN CƠ BẢN ---------- */
-
-    // Username dùng để đăng nhập & hiển thị
+    /* ===== THÔNG TIN ===== */
     username: {
       type: String,
       required: true,
@@ -38,7 +27,6 @@ const userSchema = new mongoose.Schema(
       minlength: 5,
     },
 
-    // ⭐ Email bắt buộc (login / reset / verify)
     email: {
       type: String,
       required: true,
@@ -46,37 +34,29 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
     },
 
-    // Mật khẩu đã hash
     password: {
       type: String,
       required: true,
     },
 
-    /* ---------- PHÂN QUYỀN ---------- */
-
-    // Role giữ lại để tương thích cũ (có thể bỏ sau)
-    role: {
-      type: String,
-      enum: ["user", "admin"],
-      default: "user",
-    },
-
-    // ⭐ CẤP BẬC NGƯỜI DÙNG
-    // 0: Độc giả | 1: Tác giả | 2: Admin
+    /* ===== PHÂN QUYỀN ===== */
     capBac: {
-      type: Number,
+      type: Number, // 0: user | 1: author | 2: admin
       default: 0,
     },
 
-    // Đã xác minh email hay chưa
     verified: {
       type: Boolean,
       default: false,
     },
 
-    /* ---------- THEO DÕI & LỊCH SỬ ---------- */
+    // ⭐ BẮT BUỘC – BAN / UNBAN
+    banned: {
+      type: Boolean,
+      default: false,
+    },
 
-    // ⭐ Danh sách truyện đang theo dõi
+    /* ===== THEO DÕI ===== */
     following: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -84,10 +64,9 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // ⭐ Lịch sử đọc truyện
     history: [historySchema],
   },
-  { timestamps: true } // createdAt / updatedAt
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("User", userSchema);

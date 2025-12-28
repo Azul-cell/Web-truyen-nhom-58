@@ -12,7 +12,6 @@ const JWT_SECRET = "my_secret_key";
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
-  // ===== VALIDATE =====
   if (!username || username.length < 5)
     return res.status(400).json({ message: "Username ≥ 5 ký tự" });
 
@@ -27,7 +26,6 @@ router.post("/register", async (req, res) => {
   if (!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password))
     return res.status(400).json({ message: "Mật khẩu phải chứa chữ và số" });
 
-  // ===== CHECK EXIST =====
   const existUser = await User.findOne({
     $or: [{ username }, { email }],
   });
@@ -35,14 +33,14 @@ router.post("/register", async (req, res) => {
   if (existUser)
     return res.status(400).json({ message: "Username hoặc email đã tồn tại" });
 
-  // ===== CREATE =====
   const hash = await bcrypt.hash(password, 10);
 
   await User.create({
     username,
     email,
     password: hash,
-    capBac: 0, // ⭐ user thường
+    capBac: 0,
+    banned: false,
   });
 
   res.json({ message: "Đăng ký thành công" });
@@ -57,21 +55,21 @@ router.post("/login", async (req, res) => {
   const user = await User.findOne({ username });
   if (!user) return res.status(400).json({ message: "Sai tài khoản" });
 
+  if (user.banned)
+    return res.status(403).json({ message: "Tài khoản bị khoá" });
+
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) return res.status(400).json({ message: "Sai mật khẩu" });
 
-  // ===== JWT =====
   const token = jwt.sign(
     {
       userId: user._id,
-      username: user.username,
-      capBac: user.capBac, // ⭐ THAY role
+      capBac: user.capBac,
     },
     JWT_SECRET,
     { expiresIn: "1d" }
   );
 
-  // ===== COOKIE =====
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
@@ -80,6 +78,58 @@ router.post("/login", async (req, res) => {
   });
 
   res.json({ message: "Đăng nhập thành công" });
+});
+
+/* =================================================
+   GET PROFILE (API /api/me)
+================================================= */
+router.get("/me", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ message: "Chưa đăng nhập" });
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    const user = await User.findById(decoded.userId).select(
+      "_id username email capBac banned"
+    );
+
+    if (!user) return res.status(404).json({ message: "User không tồn tại" });
+
+    if (user.banned)
+      return res.status(403).json({ message: "Tài khoản bị khoá" });
+
+    res.json(user); // ⭐ EMAIL TRẢ Ở ĐÂY
+  } catch (err) {
+    res.status(401).json({ message: "Token không hợp lệ" });
+  }
+});
+
+/* =================================================
+   BAN / UNBAN (ADMIN)
+================================================= */
+router.post("/admin/ban/:id", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ message: "Chưa đăng nhập" });
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    if (decoded.capBac !== 2)
+      return res.status(403).json({ message: "Không có quyền" });
+
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User không tồn tại" });
+
+    user.banned = !user.banned;
+    await user.save();
+
+    res.json({
+      message: user.banned ? "Đã ban user" : "Đã unban user",
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Lỗi server" });
+  }
 });
 
 /* =================================================

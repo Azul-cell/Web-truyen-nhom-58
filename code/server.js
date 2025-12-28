@@ -55,6 +55,10 @@ const decuRoutes = require("./routes/decu");
 
 app.use("/api/decu", decuRoutes);
 
+/* ===== ADMIN API ===== */
+const adminRouter = require("./routes/admin");
+app.use("/api/admin", adminRouter);
+
 /* ===== CONNECT DB ===== */
 mongoose
   .connect("mongodb://127.0.0.1:27017/truyen_db")

@@ -75,6 +75,6 @@ async function loadHistory() {
 }
 
 /* =================================================
-   INIT
+  INIT
 ================================================= */
 document.addEventListener("DOMContentLoaded", loadHistory);

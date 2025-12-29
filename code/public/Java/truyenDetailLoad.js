@@ -9,17 +9,15 @@ window.currentUser = null;
 ================================================= */
 async function loadChiTiet() {
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const truyenId = params.get("id");
 
-  if (!id) {
+  if (!truyenId) {
     alert("Không có ID truyện");
     return;
   }
 
   try {
-    /* =================================================
-       🔐 LOAD USER
-    ================================================= */
+    /* ================= LOAD USER ================= */
     try {
       const meRes = await fetch("/api/me", { credentials: "include" });
       if (meRes.ok) {
@@ -29,22 +27,17 @@ async function loadChiTiet() {
       window.currentUser = null;
     }
 
-    /* =================================================
-       📡 LOAD TRUYỆN
-    ================================================= */
-    const res = await fetch(`/api/truyen/${id}`);
+    /* ================= LOAD TRUYỆN ================= */
+    const res = await fetch(`/api/truyen/${truyenId}`);
     if (!res.ok) throw new Error("Không load được truyện");
 
     const truyen = await res.json();
     window.truyenHienTai = truyen;
 
-    /* =================================================
-       HIỂN THỊ TRUYỆN
-    ================================================= */
+    /* ================= HIỂN THỊ ================= */
     document.getElementById("cover").src = truyen.anhBia || "/img/default.jpg";
 
     document.getElementById("title").textContent = truyen.tenTruyen;
-
     document.getElementById("author").textContent =
       "Tác giả: " + (truyen.tacGia || "Đang cập nhật");
 
@@ -54,25 +47,8 @@ async function loadChiTiet() {
     document.getElementById("desc").textContent =
       truyen.moTa || "Chưa có mô tả";
 
-    /* =================================================
-       DANH SÁCH CHƯƠNG
-    ================================================= */
-    renderChuong(truyen.chuong || []);
-
-    /* =================================================
-       LOAD BÌNH LUẬN
-    ================================================= */
-    if (typeof loadBinhLuan === "function") {
-      loadBinhLuan();
-    }
-
-    /* =================================================
-       LƯU LỊCH SỬ ĐỌC
-    ================================================= */
-    fetch(`/api/history/${truyen._id}`, {
-      method: "POST",
-      credentials: "include",
-    });
+    /* ================= DANH SÁCH CHƯƠNG ================= */
+    renderChuong(truyen.chuong || [], truyen._id);
   } catch (err) {
     console.error(err);
     alert("Lỗi load chi tiết truyện");
@@ -80,27 +56,27 @@ async function loadChiTiet() {
 }
 
 /* =================================================
-   RENDER CHƯƠNG
+   RENDER DANH SÁCH CHƯƠNG (DUY NHẤT 1 BẢN)
 ================================================= */
-function renderChuong(dsChuong) {
+function renderChuong(dsChuong, truyenId) {
   const box = document.getElementById("chuongList");
-  if (!box) return;
+  if (!box || !truyenId) return;
 
   box.innerHTML = "";
 
   if (!dsChuong.length) {
-    box.innerHTML = "<p>Chưa có chương</p>";
+    box.innerHTML = "<p>Truyện chưa có chương</p>";
     return;
   }
 
+  const user = window.currentUser;
+  const isAdmin = user && user.capBac === 2;
   const isOwner =
-    window.currentUser &&
+    user &&
     window.truyenHienTai &&
-    window.currentUser.userId === window.truyenHienTai.tacGiaId;
+    user.userId === window.truyenHienTai.tacGiaId;
 
-  const isAdmin = window.currentUser && window.currentUser.capBac === 2;
-
-  const coQuyen = isOwner || isAdmin;
+  const coQuyen = isAdmin || isOwner;
 
   dsChuong
     .sort((a, b) => a.soChuong - b.soChuong)
@@ -109,27 +85,32 @@ function renderChuong(dsChuong) {
       div.className = "chuong-item";
 
       div.innerHTML = `
-        <div class="chuong-left">
-          Chương ${c.soChuong}: ${c.tieuDe}
-        </div>
+        <span>
+          <b>Chương ${c.soChuong}:</b> ${c.tieuDe}
+        </span>
 
         ${
           coQuyen
             ? `
-          <div class="chuong-right">
-            <button class="btn-sua" onclick="chonSuaChuong(${c.soChuong})">✏️</button>
-            <button class="btn-xoa" onclick="xoaChuong(${c.soChuong})">🗑</button>
-          </div>
+          <span class="chuong-tools">
+            <button onclick="chonSuaChuong(${c.soChuong}); event.stopPropagation()">✏️</button>
+            <button onclick="xoaChuong(${c.soChuong}); event.stopPropagation()">🗑</button>
+          </span>
         `
             : ""
         }
       `;
+
+      // 👉 CLICK ĐỌC CHƯƠNG
+      div.onclick = () => {
+        location.href = `/Html/chuong.html?truyen=${truyenId}&chuong=${c.soChuong}`;
+      };
 
       box.appendChild(div);
     });
 }
 
 /* =================================================
-   KHỞI ĐỘNG
+   START
 ================================================= */
 document.addEventListener("DOMContentLoaded", loadChiTiet);

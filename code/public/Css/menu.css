@@ -28,11 +28,7 @@
   width: 40px; /*kích thước*/
 }
 /* thay đổi khi di chuột vào */
-#theoDoi:hover {
-  content: url(../../img/Theodoi.png); /*hình ảnh*/
-  display: inline-block; /*đổi loại display*/
-  width: 120px; /*kích thước*/
-}
+
 .menu a:hover {
   color: rgb(255, 58, 107);
   background: #646464;

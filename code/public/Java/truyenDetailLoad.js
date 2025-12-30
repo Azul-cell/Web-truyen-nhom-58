@@ -32,6 +32,17 @@ async function loadChiTiet() {
 
   console.log("TRUYEN:", truyen);
 
+  /* ===== LƯU LỊCH SỬ ĐỌC ===== */
+  try {
+    await fetch(`/api/history/${truyenId}`, {
+      method: "POST",
+      credentials: "include",
+    });
+    console.log("✅ Đã lưu lịch sử đọc:", truyenId);
+  } catch (err) {
+    console.error("❌ Lỗi lưu lịch sử:", err);
+  }
+
   /* ===== HIỂN THỊ ===== */
   document.getElementById("cover").src = truyen.anhBia || "/img/default.jpg";
   document.getElementById("title").textContent = truyen.tenTruyen;

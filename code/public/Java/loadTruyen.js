@@ -1,7 +1,7 @@
 /* ===============================
    CẤU HÌNH CHUNG (GLOBAL)
 ================================ */
-window.soTruyen = 24;
+window.soTruyen = 18;
 
 /* ===============================
    STATE CHUNG (DÙNG CHO MỌI FILE)

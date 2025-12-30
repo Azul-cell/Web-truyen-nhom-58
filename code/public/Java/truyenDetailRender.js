@@ -1,4 +1,4 @@
-function renderChuong(dsChuong, truyenId) {
+function renderChuong(dsChuong, truyen) {
   const box = document.getElementById("chuongList");
   box.innerHTML = "";
 
@@ -7,39 +7,50 @@ function renderChuong(dsChuong, truyenId) {
     return;
   }
 
-  // 👉 LẤY USER HIỆN TẠI (đã có từ /api/me)
-  // checkAdmin() đã chạy trước đó
-  const user = window.currentUser || null;
+  const user = window.currentUser;
 
-  // 👉 kiểm tra quyền đăng / sửa chương
-  const coQuyenQuanLyChuong = user && user.capBac >= 1;
+  // ===== CHECK QUYỀN =====
+  const laAdmin = user && user.capBac === 2;
 
-  dsChuong.forEach((c) => {
-    const div = document.createElement("div");
-    div.className = "chuong-item";
+  const laTacGia =
+    user &&
+    user.capBac === 1 &&
+    truyen.tacGiaId &&
+    truyen.tacGiaId.toString() === user._id;
 
-    // 👉 chỉ render nút ✏️ 🗑️ nếu có quyền
-    const toolsHTML = coQuyenQuanLyChuong
-      ? `
-        <span class="chuong-tools">
-          <button onclick="chonSuaChuong(${c.soChuong})">✏️</button>
-          <button onclick="xoaChuong(${c.soChuong})">🗑️</button>
+  const coQuyen = laAdmin || laTacGia;
+
+  console.log("USER:", user);
+  console.log("TRUYEN TAC GIA ID:", truyen.tacGiaId);
+  console.log("CO QUYEN:", coQuyen);
+
+  dsChuong
+    .sort((a, b) => a.soChuong - b.soChuong)
+    .forEach((c) => {
+      const div = document.createElement("div");
+      div.className = "chuong-item";
+
+      div.innerHTML = `
+        <span>
+          <b>Chương ${c.soChuong}:</b> ${c.tieuDe}
         </span>
-      `
-      : "";
 
-    div.innerHTML = `
-      <span><b>Chương ${c.soChuong}:</b> ${c.tieuDe}</span>
-      ${toolsHTML}
-    `;
+        ${
+          coQuyen
+            ? `
+          <span class="chuong-tools">
+            <button onclick="chonSuaChuong(${c.soChuong}); event.stopPropagation()">✏️</button>
+            <button onclick="xoaChuong(${c.soChuong}); event.stopPropagation()">🗑️</button>
+          </span>
+        `
+            : ""
+        }
+      `;
 
-    // 👉 click đọc chương (trừ khi bấm nút)
-    div.onclick = (e) => {
-      if (e.target.tagName === "BUTTON") return;
+      div.onclick = () => {
+        location.href = `/Html/chuong.html?truyen=${truyen._id}&chuong=${c.soChuong}`;
+      };
 
-      location.href = `/Html/chuong.html?truyen=${truyenId}&chuong=${c.soChuong}`;
-    };
-
-    box.appendChild(div);
-  });
+      box.appendChild(div);
+    });
 }

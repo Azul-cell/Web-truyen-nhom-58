@@ -26,6 +26,18 @@
         <div class="logo">
           <a href="/index.html"><img src="/img/logo_no_bg.png" /></a>
         </div>
+        <!-- tìm kiếm -->
+        <div class="search">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Nhập tên tác giả, tên tác phẩm ...."
+            autocomplete="off"
+          />
+          <i class="fa fa-search" id="searchBtn"></i>
+          <!-- GỢI Ý -->
+          <div class="search-suggest" id="searchSuggest"></div>
+        </div>
         <!-- đăng nhập - đăng ký -->
         
         <div class="button">
@@ -78,6 +90,9 @@
           </div>
         </div>
       </div>
+      <script src="/Java/chuong.js"></script>
+      <script src="/Java/loadTruyen.js"></script>
+      <script src="/Java/timKiem.js"></script>
     </main>
 
     <footer>
@@ -85,7 +100,5 @@
         <p>© 2025 Tu Đạo Thư Viện</p>
       </div>
     </footer>
-
-    <script src="/Java/chuong.js"></script>
   </body>
 </html>

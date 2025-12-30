@@ -2,37 +2,41 @@ const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 const searchSuggest = document.getElementById("searchSuggest");
 
-// nếu trang không có search → dừng
 if (searchInput && searchBtn && searchSuggest) {
-  function timKiem() {
+  // =============================
+  // 🔍 TÌM & MỞ TRUYỆN
+  // =============================
+  function moTruyenTheoTen() {
     const key = searchInput.value.toLowerCase().trim();
-    trangHienTai = 1;
+    if (!key) return;
 
-    truyenDangTim = key
-      ? truyenDangLoc.filter(
-          (t) =>
-            t.tenTruyen.toLowerCase().includes(key) ||
-            (t.tacGia || "").toLowerCase().includes(key)
-        )
-      : truyenDangLoc;
+    // tìm truyện đầu tiên khớp
+    const truyen = truyenDangLoc.find(
+      (t) =>
+        t.tenTruyen.toLowerCase().includes(key) ||
+        (t.tacGia || "").toLowerCase().includes(key)
+    );
 
-    searchSuggest.style.display = "none";
-
-    if (typeof renderAll === "function") {
-      renderAll();
+    if (truyen) {
+      location.href = `/Html/chiTiet.html?id=${truyen._id}`;
+    } else {
+      alert("❌ Không tìm thấy truyện phù hợp");
     }
   }
 
-  searchBtn.onclick = timKiem;
+  // click nút search
+  searchBtn.onclick = moTruyenTheoTen;
 
+  // Enter
   searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") timKiem();
+    if (e.key === "Enter") moTruyenTheoTen();
   });
 
-  /* ===== GỢI Ý ===== */
+  // =============================
+  // ⭐ GỢI Ý TRUYỆN
+  // =============================
   function hienGoiY(keyword) {
     keyword = keyword.toLowerCase().trim();
-
     if (!keyword) {
       searchSuggest.style.display = "none";
       return;
@@ -46,7 +50,7 @@ if (searchInput && searchBtn && searchSuggest) {
       )
       .slice(0, 6);
 
-    if (goiY.length === 0) {
+    if (!goiY.length) {
       searchSuggest.style.display = "none";
       return;
     }
@@ -67,9 +71,9 @@ if (searchInput && searchBtn && searchSuggest) {
         </div>
       `;
 
+      // 👉 CLICK LÀ MỞ TRUYỆN
       div.onclick = () => {
-        searchInput.value = t.tenTruyen;
-        timKiem();
+        location.href = `/Html/truyen.html?id=${t._id}`;
       };
 
       searchSuggest.appendChild(div);

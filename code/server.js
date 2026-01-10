@@ -17,11 +17,6 @@ app.use(authMiddleware);
 /* ===== AUTH API ===== */
 app.use("/api/auth", authRoute);
 
-/* ===== ADMIN TEST API ===== */
-const isAdmin = require("./middleware/isAdmin");
-app.get("/api/admin", isAdmin, (req, res) => {
-  res.json({ message: "Chào Admin" });
-});
 /* ===== TRUYỆN API ===== */
 const truyenRoute = require("./routes/truyen");
 app.use("/api/truyen", truyenRoute);
@@ -52,7 +47,6 @@ app.use("/api/history", historyRouter);
 
 /* ===== DE CU API ===== */
 const decuRoutes = require("./routes/decu");
-
 app.use("/api/decu", decuRoutes);
 
 /* ===== ADMIN API ===== */

@@ -4,51 +4,49 @@ const Truyen = require("../models/Truyen");
 
 const router = express.Router();
 
-// số truyện đề cử
-const MAX_DECU = 10;
+// Giới hạn số truyện đề cử trả về
+const MAX_DECU = 6;
 
-/* =================================================
-   GET /api/decu
-   🔥 TRUYỆN ĐỀ CỬ TRONG TUẦN
-   ⭐ nhiều lượt đánh giá > 3 sao nhất
-================================================= */
+// API lấy danh sách truyện đề cử
+// Dựa trên đánh giá sao của người đọc
+// Chỉ tính các đánh giá có số sao lớn hơn 3
 router.get("/", async (req, res) => {
   try {
-    // mốc 7 ngày trước
+    // Mốc thời gian 7 ngày trước (có thể dùng cho mở rộng thống kê tuần)
     const lastWeek = new Date();
     lastWeek.setDate(lastWeek.getDate() - 7);
 
     const data = await Truyen.aggregate([
-      // tách từng đánh giá
+      // Tách từng phần tử trong mảng đánh giá để xử lý riêng
       { $unwind: "$danhGia" },
 
-      // chỉ lấy đánh giá > 3 sao
+      // Lọc các đánh giá có số sao lớn hơn 3
       { $match: { "danhGia.soSao": { $gt: 3 } } },
 
-      // nếu sau này bạn thêm createdAt cho danhGia
-      // { $match: { "danhGia.createdAt": { $gte: lastWeek } } },
+      // lọc theo thời gian đánh giá
+      { $match: { "danhGia.createdAt": { $gte: lastWeek } } },
 
-      // gom theo truyện
+      // Gom nhóm theo từng truyện
       {
         $group: {
-          _id: "$_id",
+          _id: "$_id", // ID truyện
           tenTruyen: { $first: "$tenTruyen" },
           tacGia: { $first: "$tacGia" },
           anhBia: { $first: "$anhBia" },
-          soLuot: { $sum: 1 }, // số lượt >3⭐
+          soLuot: { $sum: 1 }, // đếm số lượt đánh giá > 3 sao
         },
       },
 
-      // sắp xếp nhiều lượt nhất
+      // Sắp xếp giảm dần theo số lượt đánh giá
       { $sort: { soLuot: -1 } },
 
-      // giới hạn
+      // Giới hạn số truyện trả về
       { $limit: MAX_DECU },
     ]);
 
     res.json(data);
   } catch (err) {
-    console.error("Lỗi đề cử:", err);
+    console.error("Lỗi lấy danh sách đề cử:", err);
     res.status(500).json({ message: "Lỗi server" });
   }
 });

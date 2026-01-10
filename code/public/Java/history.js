@@ -5,7 +5,7 @@
 
 const historyList = document.getElementById("historyList");
 
-// 1️⃣ Load lịch sử
+//  Load lịch sử
 async function loadHistory() {
   if (!historyList) return;
 
@@ -58,7 +58,7 @@ async function loadHistory() {
   }
 }
 
-// 2️⃣ Lưu lịch sử (gọi khi mở trang truyện)
+// Lưu lịch sử (gọi khi mở trang truyện)
 async function saveHistory(truyenId) {
   if (!truyenId) return;
   try {
@@ -71,7 +71,7 @@ async function saveHistory(truyenId) {
   }
 }
 
-// 3️⃣ INIT
+//  INIT
 document.addEventListener("DOMContentLoaded", () => {
   loadHistory();
 

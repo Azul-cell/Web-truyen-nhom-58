@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnFollow.addEventListener("click", handleFollowClick);
 
-  // 🔥 chờ truyện load
+  //  chờ truyện load
   const wait = setInterval(async () => {
     if (window.truyenHienTai?._id) {
       await loadMe();

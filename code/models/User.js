@@ -1,25 +1,31 @@
 const mongoose = require("mongoose");
 
-/* ================= LỊCH SỬ ĐỌC ================= */
+/* ===== LỊCH SỬ ĐỌC ===== */
 const historySchema = new mongoose.Schema(
   {
+    // truyện đã đọc
     truyenId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Truyen",
       required: true,
     },
+
+    // lần đọc gần nhất
     lastReadAt: {
       type: Date,
       default: Date.now,
     },
   },
-  { _id: false }
+  {
+    // không cần id riêng
+    _id: false,
+  }
 );
 
-/* ================= USER ================= */
+/* ===== USER ===== */
 const userSchema = new mongoose.Schema(
   {
-    /* ===== THÔNG TIN ===== */
+    // tên đăng nhập
     username: {
       type: String,
       required: true,
@@ -27,6 +33,7 @@ const userSchema = new mongoose.Schema(
       minlength: 5,
     },
 
+    // email
     email: {
       type: String,
       required: true,
@@ -34,29 +41,29 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
     },
 
+    // mật khẩu
     password: {
       type: String,
       required: true,
     },
 
-    /* ===== PHÂN QUYỀN ===== */
+    /* ----- QUYỀN ----- */
+
+    // 0: user | 1: tác giả | 2: admin
     capBac: {
-      type: Number, // 0: user | 1: author | 2: admin
+      type: Number,
       default: 0,
     },
 
-    verified: {
-      type: Boolean,
-      default: false,
-    },
-
-    // ⭐ BẮT BUỘC – BAN / UNBAN
+    // khoá tài khoản
     banned: {
       type: Boolean,
       default: false,
     },
 
-    /* ===== THEO DÕI ===== */
+    /* ----- DỮ LIỆU ----- */
+
+    // truyện đang theo dõi
     following: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -64,9 +71,13 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
+    // lịch sử đọc
     history: [historySchema],
   },
-  { timestamps: true }
+  {
+    // tự tạo thời gian
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("User", userSchema);

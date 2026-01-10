@@ -1,10 +1,10 @@
 /* ===============================
-   CẤU HÌNH CHUNG (GLOBAL)
+  CẤU HÌNH CHUNG (GLOBAL)
 ================================ */
 window.soTruyen = 18;
 
 /* ===============================
-   STATE CHUNG (DÙNG CHO MỌI FILE)
+  STATE CHUNG (DÙNG CHO MỌI FILE)
 ================================ */
 window.truyenGoc = []; // danh sách truyện gốc
 window.truyenDangLoc = []; // sau khi lọc thể loại
@@ -12,12 +12,12 @@ window.truyenDangTim = []; // sau khi tìm kiếm
 window.trangHienTai = 1;
 
 /* ===============================
-   DOM
+  DOM
 ================================ */
 const listTruyen = document.getElementById("listTruyen");
 
 /* ===============================
-   LOAD DANH SÁCH TRUYỆN
+  LOAD DANH SÁCH TRUYỆN
 ================================ */
 async function loadTruyen() {
   try {

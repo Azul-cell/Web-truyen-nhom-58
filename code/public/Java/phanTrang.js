@@ -2,7 +2,7 @@ const maxButtons = 5;
 const phanTrang = document.getElementById("phanTrang");
 
 function renderButtons() {
-  // ❗ không có phân trang → thoát
+  // không có phân trang → thoát
   if (!phanTrang) return;
 
   phanTrang.innerHTML = "";
@@ -42,7 +42,7 @@ function taoNut(text, disabled, onClick) {
 function doiTrang(trang) {
   trangHienTai = trang;
 
-  // ❗ chỉ gọi khi tồn tại
+  // chỉ gọi khi tồn tại
   if (typeof renderNew === "function") {
     renderNew();
   }

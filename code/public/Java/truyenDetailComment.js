@@ -3,6 +3,7 @@ const inputNoiDung = document.getElementById("noiDungBinhLuan");
 const btnGui = document.getElementById("btnGuiBinhLuan");
 
 window.currentUser = window.currentUser || null;
+
 /* ================= KIỂM TRA ĐĂNG NHẬP ================= */
 async function checkLoginForComment() {
   try {
@@ -45,14 +46,23 @@ async function loadBinhLuan() {
 
       const ten = bl.username || "Người dùng";
 
-      // 👉 kiểm tra quyền xoá
+      /* ===== CHUYỂN capBac → TEXT ===== */
+      let capBacText = "👤 Độc giả";
+      if (bl.capBac === 1) capBacText = "✍️ Tác giả";
+      if (bl.capBac === 2) capBacText = "👑 Admin";
+
+      /* ===== KIỂM TRA QUYỀN XOÁ ===== */
       const coQuyenXoa =
         currentUser &&
         (currentUser._id === bl.userId || currentUser.capBac >= 2);
 
+      /* ===== RENDER HTML ===== */
       div.innerHTML = `
         <div class="bl-header">
-          <span class="bl-user">${ten}</span>
+          <span class="bl-user">
+            ${ten}
+            <span class="bl-role">${capBacText}</span>
+          </span>
           <span class="bl-time">
             ${new Date(bl.createdAt).toLocaleString()}
           </span>
@@ -65,7 +75,7 @@ async function loadBinhLuan() {
         <div class="bl-content">${bl.noiDung}</div>
       `;
 
-      // gắn sự kiện xoá
+      /* ===== SỰ KIỆN XOÁ ===== */
       if (coQuyenXoa) {
         div.querySelector(".bl-delete").onclick = () => xoaBinhLuan(bl._id);
       }
@@ -132,7 +142,6 @@ async function xoaBinhLuan(binhLuanId) {
 document.addEventListener("DOMContentLoaded", async () => {
   await checkLoginForComment();
 
-  // chờ truyenHienTai được load
   const timer = setInterval(() => {
     if (window.truyenHienTai?._id) {
       loadBinhLuan();

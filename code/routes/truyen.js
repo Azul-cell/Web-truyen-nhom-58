@@ -5,35 +5,35 @@ const requireCapBac = require("../middleware/requireCapBac");
 
 const router = express.Router();
 
-/* ===============================
-   GET /api/truyen
-=============================== */
+// GET /api/truyen
+// Lấy danh sách tất cả truyện, sắp xếp mới nhất trước
 router.get("/", async (req, res) => {
   try {
     const truyens = await Truyen.find().sort({ createdAt: -1 });
     res.json(truyens);
-  } catch {
+  } catch (err) {
+    console.error("Lỗi lấy truyện:", err);
     res.status(500).json({ message: "Lỗi lấy truyện" });
   }
 });
 
-/* ===============================
-   GET /api/truyen/:id
-=============================== */
+// GET /api/truyen/:id
+// Lấy thông tin chi tiết của một truyện
 router.get("/:id", async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(400).json({ message: "ID không hợp lệ" });
 
-  const truyen = await Truyen.findById(req.params.id);
+  const truyen = await Truyen.findById(id);
   if (!truyen)
     return res.status(404).json({ message: "Không tìm thấy truyện" });
 
   res.json(truyen);
 });
 
-/* ===============================
-   POST /api/truyen
-=============================== */
+// POST /api/truyen
+// Thêm truyện mới (chỉ tác giả trở lên)
 router.post("/", requireCapBac(1), async (req, res) => {
   const { tenTruyen, tacGia, theLoai, moTa, anhBia } = req.body;
 
@@ -53,9 +53,8 @@ router.post("/", requireCapBac(1), async (req, res) => {
   res.json({ message: "Thêm truyện thành công", truyen });
 });
 
-/* ===============================
-   PUT /api/truyen/:id
-=============================== */
+// PUT /api/truyen/:id
+// Cập nhật thông tin truyện (chủ truyện hoặc admin)
 router.put("/:id", requireCapBac(1), async (req, res) => {
   const truyen = await Truyen.findById(req.params.id);
   if (!truyen)
@@ -73,9 +72,8 @@ router.put("/:id", requireCapBac(1), async (req, res) => {
   res.json({ message: "Sửa truyện thành công" });
 });
 
-/* =================================================
-   POST /api/truyen/:id/chuong
-================================================= */
+// POST /api/truyen/:id/chuong
+// Thêm chương mới cho truyện
 router.post("/:id/chuong", requireCapBac(1), async (req, res) => {
   const { soChuong, tieuDe, noiDung } = req.body;
 
@@ -105,9 +103,8 @@ router.post("/:id/chuong", requireCapBac(1), async (req, res) => {
   res.json({ message: "Thêm chương thành công" });
 });
 
-/* =================================================
-   PUT /api/truyen/:id/chuong/:soChuong  ✅ FIX LỖI
-================================================= */
+// PUT /api/truyen/:id/chuong/:soChuong
+// Cập nhật chương của truyện
 router.put("/:id/chuong/:soChuong", requireCapBac(1), async (req, res) => {
   const { tieuDe, noiDung } = req.body;
   const soChuong = Number(req.params.soChuong);
@@ -133,9 +130,8 @@ router.put("/:id/chuong/:soChuong", requireCapBac(1), async (req, res) => {
   res.json({ message: "Cập nhật chương thành công" });
 });
 
-/* =================================================
-   DELETE /api/truyen/:id/chuong/:soChuong
-================================================= */
+// DELETE /api/truyen/:id/chuong/:soChuong
+// Xoá chương của truyện
 router.delete("/:id/chuong/:soChuong", requireCapBac(1), async (req, res) => {
   const soChuong = Number(req.params.soChuong);
 

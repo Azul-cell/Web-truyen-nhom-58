@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const user = await res.json();
 
-    // ❌ KHÔNG dùng role
-    // ⭐ CHỈ dùng capBac
+    // dùng capBac
     if (!user || user.capBac < 1) {
       alert("Bạn không có quyền truy cập trang này");
       location.href = "/";

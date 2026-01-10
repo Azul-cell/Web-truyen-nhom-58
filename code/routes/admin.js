@@ -1,28 +1,28 @@
 const express = require("express");
 const User = require("../models/User");
 const Truyen = require("../models/Truyen");
-const auth = require("../middleware/auth"); // xác thực đăng nhập
-const isAdmin = require("../middleware/isAdmin"); // chỉ admin
+
+// kiểm tra đăng nhập (JWT)
+const auth = require("../middleware/auth");
+
+// kiểm tra quyền admin
+const isAdmin = require("../middleware/isAdmin");
 
 const router = express.Router();
 
-/* ===============================
-   👑 ADMIN: LẤY DANH SÁCH USER
-   GET /api/admin/users
-================================ */
+// lấy danh sách user, không trả về mật khẩu
+// chỉ admin mới được xem
 router.get("/users", auth, isAdmin, async (req, res) => {
   try {
     const users = await User.find().select("-password");
     res.json(users);
   } catch (err) {
-    res.status(500).json({ message: "Lỗi lấy danh sách user" });
+    res.status(500).json({ message: "Không lấy được danh sách user" });
   }
 });
 
-/* ===============================
-   👑 ADMIN: BAN / UNBAN USER
-   POST /api/admin/ban/:id
-================================ */
+// khoá hoặc mở khoá tài khoản user
+// mỗi lần gọi sẽ đổi trạng thái banned
 router.post("/ban/:id", auth, isAdmin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -35,20 +35,17 @@ router.post("/ban/:id", auth, isAdmin, async (req, res) => {
     await user.save();
 
     res.json({
-      message: user.banned ? "Đã ban user" : "Đã unban user",
+      message: user.banned ? "User đã bị khoá" : "User đã được mở khoá",
       banned: user.banned,
     });
   } catch (err) {
-    res.status(500).json({ message: "Lỗi ban / unban user" });
+    res.status(500).json({ message: "Lỗi khi cập nhật trạng thái user" });
   }
 });
 
-/* =================================================
-   🗑 XOÁ TRUYỆN
-   - Tác giả: xoá truyện của mình
-   - Admin: xoá mọi truyện
-   DELETE /api/admin/truyen/:id
-================================================= */
+// xoá truyện
+// tác giả chỉ được xoá truyện của mình
+// admin có thể xoá mọi truyện
 router.delete("/truyen/:id", auth, async (req, res) => {
   try {
     const truyen = await Truyen.findById(req.params.id);
@@ -70,7 +67,7 @@ router.delete("/truyen/:id", auth, async (req, res) => {
 
     res.json({ message: "Xoá truyện thành công" });
   } catch (err) {
-    console.error("❌ Lỗi xoá truyện:", err);
+    console.error("Lỗi xoá truyện:", err);
     res.status(500).json({ message: "Lỗi server" });
   }
 });

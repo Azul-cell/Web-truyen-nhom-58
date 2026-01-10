@@ -6,7 +6,7 @@ body {
   margin: 0; /* Xóa khoảng trống của trình duyệt quanh trang */
   background-size: cover; /* Hình nền bao phủ toàn bộ màn hình */
   background-repeat: no-repeat;
-  background-image: url(../../img/tutien.gif);
+  background-image: url(/img/tutien.gif);
   background-position: center;
   background-attachment: fixed; /* Giữ hình nền cố định*/
   display: flex;

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       credentials: "same-origin",
     });
 
-    // ❌ chưa đăng nhập
+    // chưa đăng nhập
     if (!res.ok) {
       loginBtn.style.display = "inline-block";
       userBox.style.display = "none";
@@ -25,13 +25,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // ✅ đã đăng nhập
+    // đã đăng nhập
     loginBtn.style.display = "none";
     userBox.style.display = "flex";
     usernameSpan.textContent = user.username;
 
-    // ⭐ QUYỀN QUẢN TRỊ / TÁC GIẢ
-    // capBac:
+    // QUYỀN QUẢN TRỊ / TÁC GIẢ
     // 0 = độc giả
     // 1 = tác giả
     // 2 = admin

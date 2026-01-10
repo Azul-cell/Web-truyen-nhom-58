@@ -1,44 +1,44 @@
-/* =================================================
-   THÊM TRUYỆN MỚI
-   - Chỉ Tác giả (capBac >= 1) hoặc Admin
-   - JWT được gửi qua cookie
-================================================= */
-async function addTruyen() {
-  /* ---------- LẤY DỮ LIỆU TỪ FORM ---------- */
+/* ======= THÊM TRUYỆN MỚI  ======= */
 
-  // Tên truyện
+async function addTruyen() {
+  /* ===== LẤY DỮ LIỆU NGƯỜI DÙNG NHẬP ===== */
+
+  // Lấy tên truyện từ input
   const tenTruyen = document.getElementById("title").value.trim();
 
-  // Tên tác giả hiển thị (snapshot)
+  // Lấy tên tác giả hiển thị (lưu theo thời điểm đăng)
   const tacGia = document.getElementById("author").value.trim();
 
-  // Link ảnh bìa
+  // Lấy link ảnh bìa truyện
   const anhBia = document.getElementById("cover").value.trim();
 
-  // Mô tả truyện
+  // Lấy mô tả nội dung truyện
   const moTa = document.getElementById("desc").value.trim();
 
-  // Danh sách thể loại được chọn
-  const theLoai = getSelectedGenres(); // trả về mảng
+  // Lấy danh sách thể loại mà người dùng đã chọn
+  const theLoai = getSelectedGenres(); // trả về mảng thể loại
 
-  /* ---------- VALIDATE PHÍA FRONTEND ---------- */
+  /* ===== KIỂM TRA DỮ LIỆU PHÍA CLIENT ===== */
 
+  // Kiểm tra tên truyện
   if (!tenTruyen) {
     alert("Vui lòng nhập tên truyện");
     return;
   }
 
+  // Kiểm tra tên tác giả
   if (!tacGia) {
     alert("Vui lòng nhập tên tác giả");
     return;
   }
 
+  // Bắt buộc phải chọn ít nhất một thể loại
   if (theLoai.length === 0) {
     alert("Vui lòng chọn ít nhất một thể loại");
     return;
   }
 
-  /* ---------- GỬI REQUEST ---------- */
+  /* ===== GỬI REQUEST LÊN SERVER ===== */
 
   const res = await fetch("/api/truyen", {
     method: "POST",
@@ -46,12 +46,11 @@ async function addTruyen() {
       "Content-Type": "application/json",
     },
 
-    // ⭐ RẤT QUAN TRỌNG
-    // Gửi cookie JWT để backend biết user là ai
+    // Cho phép gửi cookie để server xác định người dùng
     credentials: "same-origin",
 
-    // ⭐ KHÔNG gửi userId / capBac
-    // Backend sẽ lấy từ req.user (JWT)
+    // Không gửi thông tin quyền hay userId từ frontend
+    // Server sẽ lấy từ JWT sau khi xác thực
     body: JSON.stringify({
       tenTruyen,
       tacGia,
@@ -61,7 +60,7 @@ async function addTruyen() {
     }),
   });
 
-  /* ---------- XỬ LÝ RESPONSE ---------- */
+  /* ===== XỬ LÝ PHẢN HỒI TỪ SERVER ===== */
 
   const text = await res.text();
 
@@ -69,11 +68,11 @@ async function addTruyen() {
     const data = JSON.parse(text);
     alert(data.message);
   } catch (err) {
-    console.error("Server trả về:", text);
-    alert("Server lỗi (không phải JSON)");
+    console.error("Response không hợp lệ:", text);
+    alert("Có lỗi xảy ra phía server");
   }
 
-  /* ---------- RESET FORM NẾU THÀNH CÔNG ---------- */
+  /* ===== RESET FORM KHI THÊM THÀNH CÔNG ===== */
 
   if (res.ok) {
     document.getElementById("title").value = "";
@@ -81,6 +80,6 @@ async function addTruyen() {
     document.getElementById("cover").value = "";
     document.getElementById("desc").value = "";
 
-    clearSelectedGenres(); // hàm bạn đã có
+    clearSelectedGenres(); // reset các thể loại đã chọn
   }
 }

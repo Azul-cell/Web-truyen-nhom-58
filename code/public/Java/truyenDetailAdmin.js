@@ -26,7 +26,7 @@ async function checkCapBac() {
 
     const user = await res.json();
 
-    // ⭐ capBac >= 1 → được quản lý chương
+    //  capBac >= 1 → được quản lý chương
     if (user && user.capBac >= 1) {
       adminBox.style.display = "block";
     }
@@ -66,7 +66,7 @@ btnThem.onclick = async () => {
 };
 
 /* =================================================
-   BẮT ĐẦU SỬA (CLICK ✏️)
+   BẮT ĐẦU SỬA 
 ================================================= */
 function chonSuaChuong(soChuong) {
   if (!truyenHienTai || !Array.isArray(truyenHienTai.chuong)) {

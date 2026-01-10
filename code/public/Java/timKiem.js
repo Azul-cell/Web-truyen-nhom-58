@@ -4,7 +4,7 @@ const searchSuggest = document.getElementById("searchSuggest");
 
 if (searchInput && searchBtn && searchSuggest) {
   // =============================
-  // 🔍 TÌM & MỞ TRUYỆN
+  // TÌM & MỞ TRUYỆN
   // =============================
   function moTruyenTheoTen() {
     const key = searchInput.value.toLowerCase().trim();
@@ -33,7 +33,7 @@ if (searchInput && searchBtn && searchSuggest) {
   });
 
   // =============================
-  // ⭐ GỢI Ý TRUYỆN
+  // GỢI Ý TRUYỆN
   // =============================
   function hienGoiY(keyword) {
     keyword = keyword.toLowerCase().trim();
@@ -71,7 +71,7 @@ if (searchInput && searchBtn && searchSuggest) {
         </div>
       `;
 
-      // 👉 CLICK LÀ MỞ TRUYỆN
+      // CLICK LÀ MỞ TRUYỆN
       div.onclick = () => {
         location.href = `/Html/truyen.html?id=${t._id}`;
       };

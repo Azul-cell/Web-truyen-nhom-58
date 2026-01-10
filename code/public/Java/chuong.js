@@ -94,7 +94,6 @@ async function loadChuong() {
   }
 
   /* ---------- GHI LỊCH SỬ ĐỌC ---------- */
-  // (backend tự check login)
   fetch("/api/user/history", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -14,7 +14,7 @@ document.querySelectorAll(".genre").forEach((item) => {
     const theLoai = item.textContent.trim();
     trangHienTai = 1;
 
-    // ⭐ DÙNG DANH SÁCH GỐC CỦA TRANG
+    // DÙNG DANH SÁCH GỐC CỦA TRANG
     truyenDangLoc = truyenGoc.filter(
       (t) => Array.isArray(t.theLoai) && t.theLoai.includes(theLoai)
     );
@@ -30,7 +30,7 @@ btnAll?.addEventListener("click", () => {
 
   trangHienTai = 1;
 
-  // ⭐ RESET VỀ DANH SÁCH GỐC
+  // RESET VỀ DANH SÁCH GỐC
   truyenDangLoc = truyenGoc;
   truyenDangTim = truyenDangLoc;
 

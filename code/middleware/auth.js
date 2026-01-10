@@ -1,46 +1,51 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-const JWT_SECRET = "my_secret_key"; // sau cho vào .env
+// key dùng để kiểm tra token
+const JWT_SECRET = "my_secret_key";
 
 module.exports = async (req, res, next) => {
+  // lấy token từ cookie
   const token = req.cookies.token;
 
-  // ❌ Chưa đăng nhập
+  // không có token thì coi như chưa đăng nhập
   if (!token) {
     req.user = null;
     return next();
   }
 
   try {
+    // kiểm tra token có hợp lệ không
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    // 🔍 LẤY USER TỪ DB
+    // lấy thông tin user từ database
     const user = await User.findById(decoded.userId);
 
-    // ❌ Không tồn tại
+    // user không tồn tại
     if (!user) {
       req.user = null;
       return next();
     }
 
-    // 🚫 USER BỊ BAN
+    // nếu user bị khoá thì chặn request
     if (user.banned) {
       return res.status(403).json({
         message: "Tài khoản đã bị ban",
       });
     }
 
-    // ✅ GÁN USER VÀO REQUEST
+    // lưu thông tin cần thiết vào request
     req.user = {
       userId: user._id.toString(),
       username: user.username,
       role: user.role,
-      capBac: user.capBac, // 0 | 1 | 2
+      capBac: user.capBac,
     };
   } catch (err) {
+    // token sai hoặc hết hạn
     req.user = null;
   }
 
+  // cho request đi tiếp
   next();
 };

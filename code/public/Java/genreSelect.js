@@ -2,7 +2,7 @@
    CHỌN THỂ LOẠI (DÙNG KHI ĐĂNG TRUYỆN)
 ================================================= */
 
-// ⭐ Lưu thể loại đã chọn (không trùng)
+//  Lưu thể loại đã chọn (không trùng)
 const selectedGenres = new Set();
 
 // Box hiển thị thể loại đã chọn

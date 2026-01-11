@@ -1,24 +1,24 @@
-/* =================================================
-   BIẾN TOÀN CỤC
-================================================= */
+//BIẾN TOÀN CỤC
+
+// Lưu số chương đang được chỉnh sửa (null = không sửa)
 let chuongDangSua = null;
 
-/* =================================================
-   DOM ELEMENT
-================================================= */
+//DOM ELEMENT
+// Box quản lý chương (chỉ hiện cho tác giả / admin)
 const adminBox = document.getElementById("adminChuongBox");
 
+// Input nhập chương
 const soChuongInput = document.getElementById("soChuong");
 const tieuDeInput = document.getElementById("tieuDeChuong");
 const noiDungInput = document.getElementById("noiDungChuong");
 
+// Các nút chức năng
 const btnThem = document.getElementById("btnThemChuong");
 const btnCapNhat = document.getElementById("btnCapNhatChuong");
 const btnHuy = document.getElementById("btnHuySua");
 
-/* =================================================
-   CHECK CẤP BẬC (KHÔNG DÙNG ROLE)
-================================================= */
+//CHECK CẤP BẬC USER
+//capBac >= 1 → được thêm / sửa / xoá chương
 async function checkCapBac() {
   try {
     const res = await fetch("/api/me", { credentials: "include" });
@@ -26,7 +26,7 @@ async function checkCapBac() {
 
     const user = await res.json();
 
-    //  capBac >= 1 → được quản lý chương
+    // Nếu là tác giả hoặc admin → hiện box quản lý chương
     if (user && user.capBac >= 1) {
       adminBox.style.display = "block";
     }
@@ -35,21 +35,22 @@ async function checkCapBac() {
   }
 }
 
+// Tự động kiểm tra khi load trang
 document.addEventListener("DOMContentLoaded", checkCapBac);
 
-/* =================================================
-   THÊM CHƯƠNG
-================================================= */
+//THÊM CHƯƠNG MỚI
 btnThem.onclick = async () => {
   const soChuong = Number(soChuongInput.value);
   const tieuDe = tieuDeInput.value.trim();
   const noiDung = noiDungInput.value.trim();
 
+  // Kiểm tra dữ liệu
   if (!soChuong || !tieuDe || !noiDung) {
     alert("Vui lòng nhập đầy đủ thông tin");
     return;
   }
 
+  // Gửi request thêm chương
   const res = await fetch(`/api/truyen/${truyenHienTai._id}/chuong`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -62,18 +63,18 @@ btnThem.onclick = async () => {
 
   alert(data.message);
   resetForm();
-  loadChiTiet(); // reload lại danh sách
+  loadChiTiet(); // load lại danh sách chương
 };
 
-/* =================================================
-   BẮT ĐẦU SỬA 
-================================================= */
+//CHỌN CHƯƠNG ĐỂ SỬA
 function chonSuaChuong(soChuong) {
+  // Chưa load dữ liệu truyện
   if (!truyenHienTai || !Array.isArray(truyenHienTai.chuong)) {
     alert("Dữ liệu chưa sẵn sàng");
     return;
   }
 
+  // Tìm chương cần sửa
   const chuong = truyenHienTai.chuong.find(
     (c) => c.soChuong === Number(soChuong)
   );
@@ -83,21 +84,22 @@ function chonSuaChuong(soChuong) {
     return;
   }
 
+  // Lưu trạng thái đang sửa
   chuongDangSua = chuong.soChuong;
 
+  // Đổ dữ liệu lên form
   soChuongInput.value = chuong.soChuong;
-  soChuongInput.disabled = true;
+  soChuongInput.disabled = true; // không cho đổi số chương
   tieuDeInput.value = chuong.tieuDe;
   noiDungInput.value = chuong.noiDung;
 
+  // Đổi nút
   btnThem.style.display = "none";
   btnCapNhat.style.display = "inline-block";
   btnHuy.style.display = "inline-block";
 }
 
-/* =================================================
-   CẬP NHẬT CHƯƠNG
-================================================= */
+//CẬP NHẬT CHƯƠNG
 btnCapNhat.onclick = async () => {
   if (chuongDangSua === null) {
     alert("Chưa chọn chương cần sửa");
@@ -112,6 +114,7 @@ btnCapNhat.onclick = async () => {
     return;
   }
 
+  // Gửi request cập nhật
   const res = await fetch(
     `/api/truyen/${truyenHienTai._id}/chuong/${chuongDangSua}`,
     {
@@ -130,9 +133,7 @@ btnCapNhat.onclick = async () => {
   loadChiTiet();
 };
 
-/* =================================================
-   XOÁ CHƯƠNG
-================================================= */
+//XOÁ CHƯƠNG
 async function xoaChuong(soChuong) {
   if (!confirm("Bạn chắc chắn muốn xoá chương này?")) return;
 
@@ -151,9 +152,7 @@ async function xoaChuong(soChuong) {
   loadChiTiet();
 }
 
-/* =================================================
-   RESET FORM
-================================================= */
+//RESET FORM (HUỶ SỬA / SAU KHI THÊM XONG)
 btnHuy.onclick = resetForm;
 
 function resetForm() {

@@ -1,47 +1,50 @@
+// DOM: tìm kiếm + nút + khung gợi ý
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 const searchSuggest = document.getElementById("searchSuggest");
 
+// Chỉ chạy khi đầy đủ các phần tử
 if (searchInput && searchBtn && searchSuggest) {
-  // =============================
-  // TÌM & MỞ TRUYỆN
-  // =============================
+  //TÌM KIẾM & MỞ TRUYỆN TRỰC TIẾP
   function moTruyenTheoTen() {
+    // Lấy từ khoá, chuyển thường và xoá khoảng trắng
     const key = searchInput.value.toLowerCase().trim();
     if (!key) return;
 
-    // tìm truyện đầu tiên khớp
+    // Tìm truyện đầu tiên khớp tên hoặc tác giả
     const truyen = truyenDangLoc.find(
       (t) =>
         t.tenTruyen.toLowerCase().includes(key) ||
         (t.tacGia || "").toLowerCase().includes(key)
     );
 
+    // Nếu tìm thấy → mở trang chi tiết
     if (truyen) {
       location.href = `/Html/chiTiet.html?id=${truyen._id}`;
     } else {
-      alert("❌ Không tìm thấy truyện phù hợp");
+      alert("Không tìm thấy truyện phù hợp");
     }
   }
 
-  // click nút search
+  // Click nút tìm kiếm
   searchBtn.onclick = moTruyenTheoTen;
 
-  // Enter
+  // Nhấn Enter trong ô input
   searchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") moTruyenTheoTen();
   });
 
-  // =============================
-  // GỢI Ý TRUYỆN
-  // =============================
+  //HIỂN THỊ GỢI Ý TRUYỆN KHI GÕ
   function hienGoiY(keyword) {
     keyword = keyword.toLowerCase().trim();
+
+    // Không có từ khoá → ẩn gợi ý
     if (!keyword) {
       searchSuggest.style.display = "none";
       return;
     }
 
+    // Lọc danh sách truyện theo tên / tác giả (tối đa 6)
     const goiY = truyenDangLoc
       .filter(
         (t) =>
@@ -50,6 +53,7 @@ if (searchInput && searchBtn && searchSuggest) {
       )
       .slice(0, 6);
 
+    // Không có gợi ý = ẩn
     if (!goiY.length) {
       searchSuggest.style.display = "none";
       return;
@@ -57,6 +61,7 @@ if (searchInput && searchBtn && searchSuggest) {
 
     searchSuggest.innerHTML = "";
 
+    // Render từng truyện gợi ý
     goiY.forEach((t) => {
       const div = document.createElement("div");
       div.className = "suggest-item";
@@ -71,7 +76,7 @@ if (searchInput && searchBtn && searchSuggest) {
         </div>
       `;
 
-      // CLICK LÀ MỞ TRUYỆN
+      // Click gợi ý = mở truyện
       div.onclick = () => {
         location.href = `/Html/truyen.html?id=${t._id}`;
       };
@@ -79,13 +84,16 @@ if (searchInput && searchBtn && searchSuggest) {
       searchSuggest.appendChild(div);
     });
 
+    // Hiện khung gợi ý
     searchSuggest.style.display = "block";
   }
 
+  // Gõ tới đâu gợi ý tới đó
   searchInput.addEventListener("input", () => {
     hienGoiY(searchInput.value);
   });
 
+  // Click ra ngoài ô search ẩn gợi ý
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".search")) {
       searchSuggest.style.display = "none";

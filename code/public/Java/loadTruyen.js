@@ -1,7 +1,7 @@
 //Số truyện hiển thị trên mỗi trang
 window.soTruyen = 18;
 
-//STATE CHUNG (DÙNG TOÀN HỆ THỐNG)
+//STATE CHUNG
 window.truyenGoc = []; // Danh sách truyện gốc từ server
 window.truyenDangLoc = []; // Danh sách sau khi lọc theo thể loại
 window.truyenDangTim = []; // Danh sách sau khi tìm kiếm
@@ -25,7 +25,7 @@ async function loadTruyen() {
     // Render giao diện
     renderAll();
   } catch (err) {
-    console.error("❌ Lỗi load truyện:", err);
+    console.error("Lỗi load truyện:", err);
   }
 }
 

@@ -18,9 +18,9 @@ if (searchInput && searchBtn && searchSuggest) {
         (t.tacGia || "").toLowerCase().includes(key)
     );
 
-    // Nếu tìm thấy → mở trang chi tiết
+    // Nếu tìm thấy → mở trang truyện
     if (truyen) {
-      location.href = `/Html/chiTiet.html?id=${truyen._id}`;
+      location.href = `/Html/truyen.html?id=${truyen._id}`;
     } else {
       alert("Không tìm thấy truyện phù hợp");
     }

@@ -14,7 +14,6 @@ body {
 }
 
 /* ================= MAIN ================= */
-/* KHÔNG CĂN GIỮA – form bám theo layout web */
 main {
   display: flex;
   justify-content: center; /* căn ngang */
@@ -24,7 +23,6 @@ main {
 }
 
 /* ================= CONTAINER ================= */
-/* KHÔNG absolute – KHÔNG translate */
 .container {
   width: 420px;
   height: 520px;
@@ -52,7 +50,7 @@ main {
 
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
 
-  overflow: hidden; /* FIX đốm blur */
+  overflow: hidden;
 }
 
 /* ================= TITLE ================= */
